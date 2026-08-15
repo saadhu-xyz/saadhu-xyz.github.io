@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anton — Manage every project from your phone</title>
+  <meta name="description" content="Anton is a personal developer-productivity platform driven from a Flutter app. Plan and build in the loop, or drop a ticket and let an autonomous worker ship a PR. Runs on your own infrastructure. Download for Android, iOS, macOS, and Linux." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>" />
+</head>
+<body>
+  <!-- ============ NAV ============ -->
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark">◆</span>
+        <span class="brand-name">Anton</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#modes">Two modes</a>
+        <a href="#tickets">Ticket flow</a>
+        <a href="#download">Download</a>
+        <a href="#install">Install</a>
+        <a href="#architecture">Architecture</a>
+      </nav>
+      <a class="btn btn-ghost nav-cta" href="#download">Get Anton</a>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="top">
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <span class="eyebrow">Self-hosted · Flutter-driven · Local AI CLIs</span>
+        <h1>Manage every project<br /><span class="accent">from your phone.</span></h1>
+        <p class="lead">
+          Anton is a personal developer-productivity platform. Stay <em>in the loop</em> with
+          live planning &amp; build sessions, or <em>drop a ticket and walk away</em> while an
+          autonomous worker ships a PR. It runs on <b>your</b> infrastructure and shells out to
+          local AI CLIs — no direct calls to any AI provider API.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#download">
+            <span class="os-label">Download for your platform</span>
+          </a>
+          <a class="btn btn-ghost" href="#modes">See the two modes →</a>
+        </div>
+        <div class="hero-meta">
+          <span><b>3</b> Go binaries</span>
+          <span class="dot">·</span>
+          <span>+ Flutter app</span>
+          <span class="dot">·</span>
+          <span>Android · iOS · macOS · Linux</span>
+          <span class="dot">·</span>
+          <span>Runs over Tailscale</span>
+        </div>
+      </div>
+
+      <div class="hero-terminal" aria-hidden="true">
+        <div class="term">
+          <div class="term-bar">
+            <span class="term-dot red"></span>
+            <span class="term-dot yellow"></span>
+            <span class="term-dot green"></span>
+            <span class="term-title">anton@dev-host</span>
+          </div>
+          <pre class="term-body"><span class="c-dim">$</span> <span class="c-cmd">./anton-status</span>
+<span class="c-ok">✔</span> interactive-development-server  <span class="c-dim">:8765</span>
+<span class="c-ok">✔</span> ticketing-service               <span class="c-dim">:8766</span>
+<span class="c-ok">✔</span> implementation-server (worker)  <span class="c-accent">online</span>
+<span class="c-dim">›</span> ticket <span class="c-accent">#142</span> claimed → worktree
+<span class="c-dim">›</span> implement → review <span class="c-ok">✔</span> → tests <span class="c-ok">✔</span>
+<span class="c-dim">›</span> pushed branch — <span class="c-accent">ready for review</span>
+<span class="c-dim">›</span> scan pairing QR to connect 📱</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TWO MODES ============ -->
+  <section class="section" id="modes">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Two modes, two moods</span>
+        <h2>Two ways of working</h2>
+        <p class="section-sub">How involved you want to be is the choice — Anton covers both ends.</p>
+      </div>
+      <div class="phases">
+        <article class="phase">
+          <div class="phase-num">MODE 01</div>
+          <h3>Active development</h3>
+          <p class="phase-tag">Interactive Development Server · <code>:8765</code></p>
+          <p>
+            You're in the loop and care about the code as it changes. Plan a change
+            conversationally, then drive a live build session — a real AI CLI in a terminal
+            on the server, streamed to your phone. Watch it work, chat, answer prompts, and
+            course-correct.
+          </p>
+          <ul class="phase-list">
+            <li>Conversational planning, then a live PTY build session</li>
+            <li>Persistent sessions — close the app, reconnect later</li>
+            <li>Files, git, and projects managed from the phone</li>
+          </ul>
+        </article>
+        <article class="phase">
+          <div class="phase-num">MODE 02</div>
+          <h3>Drop-and-walk-away</h3>
+          <p class="phase-tag">Ticketing Service · <code>:8766</code></p>
+          <p>
+            You have a reasonable prompt and no desire to babysit it. Write a ticket, refine
+            it via AI chat until it's implementation-ready, and queue it. A worker picks it up
+            and produces a PR end-to-end — you just review.
+          </p>
+          <ul class="phase-list">
+            <li>Autonomous review runs generate tickets on a schedule</li>
+            <li>Swipe to triage: queue, backlog, reject, or archive</li>
+            <li>Worker implements → reviews → tests → pushes a PR</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TICKET FLOW ============ -->
+  <section class="section section-alt" id="tickets">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Drop-and-walk-away, end to end</span>
+        <h2>How a ticket flows</h2>
+        <p class="section-sub">
+          The <b>queue is the integration boundary</b> — the worker never touches the ticketing
+          database directly, so workers can be added or moved without API changes.
+        </p>
+      </div>
+      <div class="flow">
+        <div class="flow-step"><span class="flow-n">1</span><h4>Generate</h4><p>An autonomous run reviews an opted-in project against a paradigm — security, performance, testing — and emits structured tickets. Or you write one by hand.</p></div>
+        <div class="flow-step"><span class="flow-n">2</span><h4>Triage</h4><p>On the phone, swipe to queue, backlog, reject, or archive.</p></div>
+        <div class="flow-step"><span class="flow-n">3</span><h4>Refine</h4><p>Open a ticket's AI chat to sharpen it into an implementation-ready prompt — the chat can edit the ticket's fields directly.</p></div>
+        <div class="flow-step"><span class="flow-n">4</span><h4>Queue</h4><p>Send the ticket to the ordered implementation queue.</p></div>
+        <div class="flow-step"><span class="flow-n">5</span><h4>Implement</h4><p>A worker claims it, branches a git worktree, implements, code-reviews the diff (looping if needed), generates &amp; runs tests, and pushes a branch.</p></div>
+        <div class="flow-step flow-done"><span class="flow-n">6</span><h4>Review</h4><p>The ticket shows <b>Ready for Review</b> with a tappable PR link — and a Docker preview URL when deploy is enabled.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DOWNLOAD ============ -->
+  <section class="section" id="download">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Downloads</span>
+        <h2>Get Anton</h2>
+        <p class="section-sub">
+          The <b>mobile app</b> is the primary UI for both modes. The <b>server</b> ships three
+          Go binaries — each a single executable with a systemd unit.
+        </p>
+      </div>
+
+      <!-- MOBILE -->
+      <h3 class="group-title"><span class="group-tag">Mobile app</span> The primary client</h3>
+      <div class="cards">
+        <article class="card" data-platform="android">
+          <div class="card-top">
+            <div class="card-icon">🤖</div>
+            <div>
+              <h4>Android</h4>
+              <span class="card-meta">APK · <span data-ver="mobile"></span></span>
+            </div>
+          </div>
+          <p class="card-desc">Planning chat, build terminal, ticket triage, dashboard. Sideload the APK or grab the Play Store beta.</p>
+          <a class="btn btn-primary btn-block" data-dl="android">Download APK</a>
+        </article>
+
+        <article class="card" data-platform="ios">
+          <div class="card-top">
+            <div class="card-icon"></div>
+            <div>
+              <h4>iOS</h4>
+              <span class="card-meta">TestFlight · <span data-ver="mobile"></span></span>
+            </div>
+          </div>
+          <p class="card-desc">The same Flutter client for iPhone &amp; iPad. Join the TestFlight beta.</p>
+          <a class="btn btn-primary btn-block" data-dl="ios">Open in TestFlight</a>
+        </article>
+      </div>
+
+      <!-- SERVER -->
+      <h3 class="group-title"><span class="group-tag">Server</span> Three binaries</h3>
+      <div class="cards">
+        <article class="card card-wide" data-platform="macos">
+          <div class="card-top">
+            <div class="card-icon"></div>
+            <div>
+              <h4>macOS</h4>
+              <span class="card-meta">Anton.app · menu-bar supervisor · <span data-ver="server"></span></span>
+            </div>
+          </div>
+          <p class="card-desc">
+            A drag-to-install app that bundles and supervises all three services. Pick the DMG
+            that matches your chip.
+          </p>
+          <div class="btn-row">
+            <a class="btn btn-primary" data-dl="macos-arm64">Apple Silicon (.dmg)</a>
+            <a class="btn btn-ghost" data-dl="macos-x86_64">Intel (.dmg)</a>
+          </div>
+        </article>
+
+        <article class="card card-wide" data-platform="linux">
+          <div class="card-top">
+            <div class="card-icon">🐧</div>
+            <div>
+              <h4>Linux</h4>
+              <span class="card-meta">raw binaries · systemd units · <span data-ver="server"></span></span>
+            </div>
+          </div>
+          <p class="card-desc">
+            All three binaries plus their systemd units. The worker can also run standalone on
+            any approved machine.
+          </p>
+          <div class="btn-row">
+            <a class="btn btn-primary" data-dl="linux-amd64">x86-64 (tar.gz)</a>
+            <a class="btn btn-ghost" data-dl="linux-arm64">ARM64 (tar.gz)</a>
+          </div>
+        </article>
+      </div>
+
+      <!-- WHAT'S INSIDE -->
+      <div class="bundle">
+        <div class="bundle-title">What's in the server bundle</div>
+        <ul class="bundle-list">
+          <li><code>anton</code><span class="bundle-role">Interactive Development Server — live planning &amp; build sessions</span><span class="bundle-port">:8765</span></li>
+          <li><code>anton-ticketing</code><span class="bundle-role">Ticketing Service — tickets, autonomous runs, queue, web dashboard</span><span class="bundle-port">:8766</span></li>
+          <li><code>anton-impl-server</code><span class="bundle-role">Implementation worker — claims tickets, ships PRs</span><span class="bundle-port">outbound</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ INSTALL ============ -->
+  <section class="section section-alt" id="install">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Quick start</span>
+        <h2>Install in a few minutes</h2>
+        <p class="section-sub">The mobile app reaches your services over WSS/HTTPS on your Tailscale network.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-badge">1</div>
+          <div class="step-body">
+            <h4>Run the services</h4>
+            <p>On macOS, install <code>Anton.app</code> and it supervises all three. On Linux, each service builds to one binary and ships a systemd unit:</p>
+            <div class="code-block">
+              <button class="copy" data-copy>Copy</button>
+              <pre><code><span class="c-dim"># build a service (Go modules)</span>
+cd interactive-development-server && go build
+
+<span class="c-dim"># or install the release binaries to PATH</span>
+sudo install anton anton-ticketing anton-impl-server /usr/local/bin/
+
+<span class="c-dim"># start via systemd (units under each service-file/)</span>
+systemctl --user start anton anton-ticketing</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-badge">2</div>
+          <div class="step-body">
+            <h4>Check status &amp; pairing</h4>
+            <p>Run <code>./anton-status</code> anytime to see which services are up, the admin token, and the mobile pairing QR. Safe to re-run, always exits 0.</p>
+            <div class="code-block">
+              <button class="copy" data-copy>Copy</button>
+              <pre><code>./anton-status
+<span class="c-dim"># → running services · admin token · pairing QR</span></code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-badge">3</div>
+          <div class="step-body">
+            <h4>Approve your worker</h4>
+            <p>
+              The Implementation Server self-registers with the ticketing service and waits for
+              admin approval. Each worker has its own Ed25519 keypair and signs its requests —
+              no shared secrets. Approve it once and it starts claiming queued tickets.
+            </p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-badge">4</div>
+          <div class="step-body">
+            <h4>Pair the app</h4>
+            <p>
+              Install the mobile app and scan the pairing QR from <code>anton-status</code> (or
+              enter your server URL over Tailscale). Create a project and start a live session,
+              or file your first ticket.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ARCHITECTURE ============ -->
+  <section class="section" id="architecture">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Under the hood</span>
+        <h2>How the pieces fit</h2>
+        <p class="section-sub">
+          Three independent Go binaries plus the Flutter app. Two services are stationary on the
+          dev host; the worker runs on any approved machine and connects outbound. FCM is the only
+          external cloud dependency — used solely to wake the app.
+        </p>
+      </div>
+
+      <div class="arch">
+        <div class="arch-node arch-node-app">
+          <div class="arch-node-title">📱 Flutter mobile app</div>
+          <div class="arch-node-sub">iOS · Android — the primary client</div>
+          <ul class="arch-inline">
+            <li>planning chat</li>
+            <li>build terminal</li>
+            <li>ticket triage + per-ticket chat</li>
+            <li>dashboard</li>
+          </ul>
+        </div>
+
+        <div class="arch-conn">
+          <span class="arch-conn-arrow">▼</span>
+          <span class="arch-conn-label">WSS / HTTPS · over Tailscale</span>
+          <span class="arch-conn-arrow">▼</span>
+        </div>
+
+        <div class="arch-row">
+          <div class="arch-node arch-node-primary">
+            <div class="arch-node-title">◆ anton</div>
+            <div class="arch-node-sub">Interactive Development Server · <code>:8765</code></div>
+            <ul>
+              <li>Planning sessions (WS)</li>
+              <li>Build sessions in a PTY (WS)</li>
+              <li>Files · git · projects</li>
+              <li>FCM push when AI waits</li>
+            </ul>
+          </div>
+          <div class="arch-node arch-node-primary">
+            <div class="arch-node-title">◆ anton-ticketing</div>
+            <div class="arch-node-sub">Ticketing Service · <code>:8766</code></div>
+            <ul>
+              <li>Autonomous ticket runs</li>
+              <li>Ticket lifecycle + triage</li>
+              <li>Per-ticket AI chat</li>
+              <li>Worker queue + embedded dashboard</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="arch-conn">
+          <span class="arch-conn-arrow">▼</span>
+          <span class="arch-conn-label">claim / complete · Ed25519-signed HTTP</span>
+          <span class="arch-conn-arrow">▼</span>
+        </div>
+
+        <div class="arch-node arch-node-worker">
+          <div class="arch-node-title">◆ anton-impl-server</div>
+          <div class="arch-node-sub">Implementation Server · worker · any machine · outbound only</div>
+          <ul class="arch-inline">
+            <li>claim → git worktree</li>
+            <li>implement → review-loop</li>
+            <li>tests → push PR</li>
+            <li>Docker preview → report back</li>
+          </ul>
+        </div>
+
+        <div class="arch-foot">
+          <span class="arch-foot-chip">☁️ FCM</span>
+          data-only push wakes the app — <b>your prompt content never leaves your server</b>.
+          AI CLIs (<code>claude</code> / <code>opencode</code>) run as local subprocesses.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <span class="brand-mark">◆</span>
+        <span class="brand-name">Anton</span>
+        <p>A personal developer-productivity platform, driven from your phone.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h5>Product</h5>
+          <a href="#modes">Two modes</a>
+          <a href="#tickets">Ticket flow</a>
+          <a href="#download">Download</a>
+          <a href="#install">Install</a>
+        </div>
+        <div class="footer-col">
+          <h5>Platforms</h5>
+          <a href="#download">Android · iOS</a>
+          <a href="#download">macOS · Linux</a>
+        </div>
+      </div>
+    </div>
+    <div class="wrap footer-bottom">
+      <span>Self-hosted. Your keys, your machine, your data.</span>
+      <span>© <span id="year"></span> Anton</span>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
