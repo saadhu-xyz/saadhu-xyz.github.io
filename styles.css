@@ -225,6 +225,33 @@ code {
 .copy:hover { color: var(--accent); border-color: var(--accent); }
 .copy.copied { color: var(--accent); border-color: var(--accent); }
 
+/* ---------------- INLINE PROSE LINKS ----------------
+   Global `a` is color:inherit/no-underline for nav, footer, cards and
+   buttons. Links inside body copy need to actually look like links. */
+.card-desc a, .step-body p a, .dl-note a {
+  color: var(--accent-2);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: rgba(56,189,248,.45);
+  transition: color .15s, text-decoration-color .15s;
+}
+.card-desc a:hover, .step-body p a:hover, .dl-note a:hover {
+  color: var(--accent); text-decoration-color: var(--accent);
+}
+
+/* ---------------- CALLOUT (unsigned-app warning) ---------------- */
+.callout {
+  display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: start;
+  background: rgba(251,191,36,.05); border: 1px solid rgba(251,191,36,.28);
+  border-radius: var(--radius-sm); padding: 16px 18px; margin: 0 0 16px;
+}
+.callout-mark { font-family: var(--mono); font-weight: 700; color: var(--warn); line-height: 1.6; }
+.callout p { margin: 0 0 9px; color: var(--text-dim); font-size: .9rem; }
+.callout p:last-child { margin-bottom: 0; }
+.callout b { color: var(--text); font-weight: 600; }
+.callout code { background: rgba(251,191,36,.09); border-color: rgba(251,191,36,.22); }
+
 /* ---------------- PHASE TAG (two modes) ---------------- */
 .phase-tag { font-family: var(--mono); font-size: .8rem; color: var(--accent-2); margin: -6px 0 14px; }
 .phase-tag code { background: none; border: none; padding: 0; color: var(--accent); }
