@@ -1,13 +1,20 @@
 /* ============================================================
    Anton downloads site — behavior
    ------------------------------------------------------------
-   HOW TO WIRE UP REAL DOWNLOADS
-   Edit the DOWNLOADS map below. Each key maps to a URL string.
-   Swap the "#" placeholders for one of:
-     • a GitHub Releases asset URL, e.g.
-       https://github.com/<you>/anton/releases/latest/download/anton-linux-amd64.tar.gz
-     • a direct file served by this site, e.g. /downloads/anton-linux-amd64.tar.gz
-     • a TestFlight / Play Store link for mobile
+   HOW DOWNLOADS ARE WIRED
+   Artifacts live on GitHub Releases in the PUBLIC saadhu-xyz/anton-releases
+   repo — not in saadhu-xyz/anton, which is private and whose asset URLs
+   therefore 404 for anyone without repo access.
+
+   `latest/download/<file>` always resolves to the newest release, so
+   publishing a new build updates every link here with no code change.
+   Pin a version by swapping `latest/download` for `download/<tag>`.
+
+   Filenames are load-bearing: they must match what
+   anton-releases/scripts/publish-release.sh uploads.
+
+   A "#" means "not built yet" — the button renders as "Coming soon"
+   rather than a link that 404s. Fill it in once the artifact ships.
    Also bump VERSIONS when you cut a release.
    ============================================================ */
 
@@ -16,18 +23,21 @@ const VERSIONS = {
   server: "v1.0.0",
 };
 
+const RELEASES = "https://github.com/saadhu-xyz/anton-releases/releases/latest/download";
+
 const DOWNLOADS = {
   // Mobile
-  "android":       "#",   // e.g. https://github.com/you/anton/releases/latest/download/anton.apk
+  "android":       `${RELEASES}/anton.apk`,
   "ios":           "#",   // e.g. https://testflight.apple.com/join/XXXXXXXX
 
-  // macOS (Anton.app DMGs — bundles & supervises all three server binaries)
-  "macos-arm64":   "#",   // Anton-arm64.dmg
-  "macos-x86_64":  "#",   // Anton-x86_64.dmg
+  // macOS (Anton.app DMGs — bundles & supervises all three server binaries).
+  // Built only on a Mac via packaging/macos/build-on-mac.sh.
+  "macos-arm64":   "#",   // → `${RELEASES}/Anton-arm64.dmg`
+  "macos-x86_64":  "#",   // → `${RELEASES}/Anton-x86_64.dmg`
 
   // Linux (tarball with `anton` + `anton-ticketing` + `anton-impl-server`)
-  "linux-amd64":   "#",   // anton-linux-amd64.tar.gz
-  "linux-arm64":   "#",   // anton-linux-arm64.tar.gz
+  "linux-amd64":   "#",   // → `${RELEASES}/anton-linux-amd64.tar.gz`
+  "linux-arm64":   "#",   // → `${RELEASES}/anton-linux-arm64.tar.gz`
 };
 
 /* ---- wire download buttons ---- */
