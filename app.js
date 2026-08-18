@@ -35,9 +35,11 @@ const DOWNLOADS = {
   "macos-arm64":   "#",   // → `${RELEASES}/Anton-arm64.dmg`
   "macos-x86_64":  "#",   // → `${RELEASES}/Anton-x86_64.dmg`
 
-  // Linux (tarball with `anton` + `anton-ticketing` + `anton-impl-server`)
+  // Linux (tarball with `anton` + `anton-ticketing` + `anton-impl-server`).
+  // x86-64 only: the binaries are pure-Go/CGO_ENABLED=0 static ELFs, so one
+  // build covers every distro (glibc and musl alike). No ARM64 build is
+  // produced, so there's no `linux-arm64` entry to fill.
   "linux-amd64":   "#",   // → `${RELEASES}/anton-linux-amd64.tar.gz`
-  "linux-arm64":   "#",   // → `${RELEASES}/anton-linux-arm64.tar.gz`
 };
 
 /* ---- wire download buttons ---- */
