@@ -105,6 +105,10 @@ code {
 .btn-ghost:hover { border-color: var(--accent-2); color: #fff; }
 .btn-block { width: 100%; }
 .btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
+/* Siblings in a row share the width equally, so two choices of the same kind
+   (Apple Silicon / Intel) read as one pair rather than a primary + an
+   afterthought. flex-basis 0 makes the split ignore label length. */
+.btn-row .btn { flex: 1 1 0; min-width: 180px; }
 .btn.is-recommended { position: relative; }
 
 /* ---------------- HERO ---------------- */

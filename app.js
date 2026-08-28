@@ -2,69 +2,93 @@
    Anton downloads site — behavior
    ------------------------------------------------------------
    HOW DOWNLOADS ARE WIRED
-   Artifacts live on GitHub Releases in the PUBLIC saadhu-xyz/anton-releases
-   repo — not in saadhu-xyz/anton, which is private and whose asset URLs
-   therefore 404 for anyone without repo access.
+   Every link and version on this page comes from releases.json, which is a
+   verbatim copy of the release manifest the in-app updater reads. It is
+   refreshed by packaging/update-website.sh at publish time.
 
-   `latest/download/<file>` always resolves to the newest release, so
-   publishing a new build updates every link here with no code change.
-   Pin a version by swapping `latest/download` for `download/<tag>`.
+   Nothing here is hardcoded, and that is the point. Platforms are released
+   independently — an Android-only release leaves macOS on whatever it was
+   genuinely last built at — so a single hardcoded "current version" would be
+   wrong for every platform that release did not rebuild. Reading the manifest
+   means the page says exactly what was published, per platform, and cannot
+   drift from what the updater offers.
 
-   Filenames are load-bearing: they must match what
-   anton-releases/scripts/publish-release.sh uploads.
+   Served from our own origin rather than fetched from GitHub because GitHub
+   sends no Access-Control-Allow-Origin on release assets: the download 302s to
+   release-assets.githubusercontent.com, which sets no CORS headers, so a
+   browser fetch straight to the release is blocked.
 
-   A "#" means "not built yet" — the button renders as "Coming soon"
-   rather than a link that 404s. Fill it in once the artifact ships.
-   Also bump VERSIONS when you cut a release.
+   A platform absent from the manifest renders as "Coming soon" rather than a
+   link that 404s.
    ============================================================ */
 
-const VERSIONS = {
-  mobile: "v1.0.0",
-  server: "v1.0.0",
+/* data-dl / data-ver attribute -> the platform key in the manifest. The
+   attribute names are the page's vocabulary, the keys are the manifest's; this
+   is the one place the two meet. */
+const PLATFORM_OF = {
+  "android":      "android",
+  "ios":          "ios",
+  "macos-arm64":  "macos-arm64",
+  "macos-x86_64": "macos-intel",
+  "linux-amd64":  "linux-x86",
+  // Legacy grouped labels, kept so older markup keeps working. "server" maps to
+  // Linux because that is the only server artifact this page links directly.
+  "mobile":       "android",
+  "server":       "linux-x86",
+  "macos":        "macos-arm64",
+  "linux":        "linux-x86",
 };
 
-const RELEASES = "https://github.com/saadhu-xyz/anton-releases/releases/latest/download";
-
-const DOWNLOADS = {
-  // Mobile
-  "android":       `${RELEASES}/anton.apk`,
-  "ios":           "#",   // e.g. https://testflight.apple.com/join/XXXXXXXX
-
-  // macOS (Anton.app DMGs — bundles & supervises all three server binaries).
-  // Built only on a Mac via packaging/macos/build-on-mac.sh.
-  "macos-arm64":   "#",   // → `${RELEASES}/Anton-arm64.dmg`
-  "macos-x86_64":  "#",   // → `${RELEASES}/Anton-x86_64.dmg`
-
-  // Linux (tarball with `anton` + `anton-ticketing` + `anton-impl-server`).
-  // x86-64 only: the binaries are pure-Go/CGO_ENABLED=0 static ELFs, so one
-  // build covers every distro (glibc and musl alike). No ARM64 build is
-  // produced, so there's no `linux-arm64` entry to fill.
-  "linux-amd64":   "#",   // → `${RELEASES}/anton-linux-amd64.tar.gz`
-};
-
-/* ---- wire download buttons ---- */
-document.querySelectorAll("[data-dl]").forEach((el) => {
-  const key = el.getAttribute("data-dl");
-  const url = DOWNLOADS[key];
-  const placeholder = !url || url === "#";
-  el.setAttribute("href", url || "#");
-  if (placeholder) {
-    el.setAttribute("title", "Download link coming soon");
-    el.addEventListener("click", (e) => {
-      e.preventDefault();
-      flash(el, "Coming soon");
-    });
-  } else if (!url.startsWith("http") || url.includes(location.host)) {
-    el.setAttribute("download", "");
-  } else {
-    el.setAttribute("rel", "noopener");
+/* ---- release data ---- */
+async function loadReleases() {
+  try {
+    const res = await fetch("./releases.json", { cache: "no-cache" });
+    if (!res.ok) return {};
+    const manifest = await res.json();
+    return manifest && typeof manifest.artifacts === "object" ? manifest.artifacts : {};
+  } catch {
+    // A missing or unparseable releases.json leaves every button as "Coming
+    // soon". Degrading to that is right: a dead link that looks live is worse
+    // than an honest placeholder.
+    return {};
   }
-});
+}
 
-/* ---- fill version labels ---- */
-document.querySelectorAll("[data-ver]").forEach((el) => {
-  const which = el.getAttribute("data-ver");
-  el.textContent = VERSIONS[which] || "";
+function wireDownloads(artifacts) {
+  document.querySelectorAll("[data-dl]").forEach((el) => {
+    const art = artifacts[PLATFORM_OF[el.getAttribute("data-dl")]];
+    const url = art && art.url;
+
+    el.setAttribute("href", url || "#");
+    if (!url) {
+      el.setAttribute("title", "Download link coming soon");
+      el.addEventListener("click", (e) => {
+        e.preventDefault();
+        flash(el, "Coming soon");
+      });
+      return;
+    }
+    el.setAttribute("rel", "noopener");
+    if (art.version) el.setAttribute("title", `${art.version} · ${formatSize(art.size)}`);
+  });
+}
+
+function fillVersions(artifacts) {
+  document.querySelectorAll("[data-ver]").forEach((el) => {
+    const art = artifacts[PLATFORM_OF[el.getAttribute("data-ver")]];
+    el.textContent = (art && art.version) || "";
+  });
+}
+
+function formatSize(bytes) {
+  if (!bytes) return "";
+  const mb = bytes / (1024 * 1024);
+  return mb >= 1 ? `${mb.toFixed(1)} MB` : `${Math.round(bytes / 1024)} KB`;
+}
+
+loadReleases().then((artifacts) => {
+  wireDownloads(artifacts);
+  fillVersions(artifacts);
 });
 
 /* ---- OS detection: highlight the visitor's platform ---- */
