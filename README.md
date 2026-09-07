@@ -8,7 +8,7 @@ A single, self-contained static site for distributing Anton's binaries:
   `anton-ticketing` (Ticketing Service, `:8766`), and
   `anton-impl-server` (Implementation worker, outbound-only)
 
-## Run
+## Run locally
 
 ```sh
 ./serve.sh              # http://localhost:3000  (python3 or npx serve)
@@ -16,29 +16,44 @@ A single, self-contained static site for distributing Anton's binaries:
 python3 -m http.server 3000
 ```
 
-No build step, no dependencies. Just three files: `index.html`, `styles.css`, `app.js`.
+No build step, no dependencies. Four files: `index.html`, `styles.css`, `app.js`,
+`releases.json`.
 
-## Wire up real downloads
+## Deploy
 
-All download URLs live in one place: the `DOWNLOADS` map at the top of **`app.js`**.
-Replace each `"#"` placeholder with a real URL and bump `VERSIONS`:
+The site is live on **GitHub Pages** at <https://saadhu-xyz.github.io/>, served
+straight from `main` at the repository root. There is no build and no workflow:
+pushing to `main` publishes, usually within a minute.
 
-```js
-const VERSIONS = { mobile: "v1.0.0", server: "v1.0.0" };
+`.nojekyll` disables Jekyll preprocessing. The site is already plain static HTML,
+so Jekyll would add nothing but a build step that can fail.
 
-const DOWNLOADS = {
-  "android":      "https://github.com/<you>/anton/releases/latest/download/anton.apk",
-  "ios":          "https://testflight.apple.com/join/XXXXXXXX",
-  "macos-arm64":  "https://github.com/<you>/anton/releases/latest/download/Anton-arm64.dmg",
-  "macos-x86_64": "https://github.com/<you>/anton/releases/latest/download/Anton-x86_64.dmg",
-  "linux-amd64":  "https://github.com/<you>/anton/releases/latest/download/anton-linux-amd64.tar.gz",
-  "linux-arm64":  "https://github.com/<you>/anton/releases/latest/download/anton-linux-arm64.tar.gz",
-};
+Because every path in the page is relative, the same tree serves correctly from
+`./serve.sh`, from a subdirectory, and from the Pages root — nothing is pinned to
+a particular origin.
+
+## Where downloads come from
+
+Every link and version on the page comes from `releases.json`, a verbatim copy of
+the release manifest the in-app updater reads. `app.js` fetches it on load and
+fills in each platform card. A platform absent from the manifest renders as
+"Coming soon" rather than a link that 404s, and platforms release independently,
+so each card shows the version that platform was genuinely last built at.
+
+The manifest is copied here rather than fetched from GitHub at page load because
+GitHub sends no `Access-Control-Allow-Origin` on release assets — the download
+302s to `release-assets.githubusercontent.com`, which sets no CORS headers — so a
+browser fetch straight to the release is blocked. Serving it from the site's own
+origin sidesteps that.
+
+Refresh it from the published release with:
+
+```sh
+../anton/packaging/update-website.sh
 ```
 
-Any URL that is still `"#"` renders as a disabled "Coming soon" button, so the page
-always looks complete. Same-origin URLs (e.g. `/downloads/foo.tar.gz`) get a
-`download` attribute automatically; external URLs open with `rel="noopener"`.
+which rewrites `releases.json`, commits, and pushes — the push is what takes it
+live. Pass `--no-push` to stop at the file write.
 
 ## Features
 
