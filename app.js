@@ -4,7 +4,7 @@
    HOW DOWNLOADS ARE WIRED
    Every link and version on this page comes from releases.json, which is a
    verbatim copy of the release manifest the in-app updater reads. It is
-   refreshed by packaging/update-website.sh at publish time.
+   refreshed by packaging/release.sh at publish time.
 
    Nothing here is hardcoded, and that is the point. Platforms are released
    independently — an Android-only release leaves macOS on whatever it was

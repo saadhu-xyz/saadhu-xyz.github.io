@@ -46,14 +46,9 @@ GitHub sends no `Access-Control-Allow-Origin` on release assets — the download
 browser fetch straight to the release is blocked. Serving it from the site's own
 origin sidesteps that.
 
-Refresh it from the published release with:
-
-```sh
-../anton/packaging/update-website.sh
-```
-
-which rewrites `releases.json`, commits, and pushes — the push is what takes it
-live. Pass `--no-push` to stop at the file write.
+Every release refreshes it: `../anton/packaging/release.sh` copies the new
+manifest here as its last step, commits `releases.json` to `main`, and pushes —
+the push is what takes it live.
 
 ## Features
 
