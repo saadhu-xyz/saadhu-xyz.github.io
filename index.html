@@ -198,14 +198,19 @@
             </div>
           </div>
           <p class="card-desc">
-            A drag-to-install app that bundles and supervises all three services. One line in
-            Terminal installs the right one for your chip — see the
-            <a href="#quickstart">macOS quick start</a>. These direct links are the manual path,
-            and need a Gatekeeper step because the build is unsigned.
+            A menu bar app that bundles and supervises all three services. One line installs it:
+            the script picks the build for your chip, verifies it against the published
+            <code>SHA256</code>, and launches it. No Gatekeeper prompt.
+          </p>
+          <div class="code-block is-wrap">
+            <button class="copy" data-copy>Copy</button>
+            <pre><code>curl -fsSL https://saadhu-xyz.github.io/install.sh | bash</code></pre>
+          </div>
+          <p class="card-note">
+            It's a plain shell script — <a href="./install.sh">read it first</a> if you'd rather.
           </p>
           <div class="btn-row">
-            <a class="btn btn-primary" data-dl="macos-arm64">Apple Silicon (.dmg)</a>
-            <a class="btn btn-primary" data-dl="macos-x86_64">Intel (.dmg)</a>
+            <a class="btn btn-ghost" href="#manual-install">Or install from a DMG →</a>
           </div>
         </article>
 
@@ -259,7 +264,7 @@
               <code>SHA256</code>, installs Anton to <code>/Applications</code>, adds the Claude Code
               plugin, and launches it. No prompts, nothing to click through.
             </p>
-            <div class="code-block">
+            <div class="code-block is-wrap">
               <button class="copy" data-copy>Copy</button>
               <pre><code>curl -fsSL https://saadhu-xyz.github.io/install.sh | bash</code></pre>
             </div>
@@ -270,19 +275,23 @@
           </div>
         </div>
 
-        <div class="step">
+        <div class="step" id="manual-install">
           <div class="step-badge">2</div>
           <div class="step-body">
             <h4>Or install from the DMG by hand</h4>
             <p>
-              There is no universal binary, so grab the one that matches your chip from the
-              section above, open it, and double-click <code>Install Anton.command</code>.
+              There is no universal binary, so check your chip and take the matching DMG. Open it,
+              then double-click <code>Install Anton.command</code> inside.
             </p>
             <div class="code-block">
               <button class="copy" data-copy>Copy</button>
               <pre><code>uname -m
 <span class="c-dim"># arm64  → Anton-arm64.dmg   (M1/M2/M3/M4)</span>
 <span class="c-dim"># x86_64 → Anton-x86_64.dmg  (Intel)</span></code></pre>
+            </div>
+            <div class="btn-row">
+              <a class="btn btn-primary" data-dl="macos-arm64">Apple Silicon (.dmg)</a>
+              <a class="btn btn-primary" data-dl="macos-x86_64">Intel (.dmg)</a>
             </div>
             <div class="callout">
               <span class="callout-mark">!</span>

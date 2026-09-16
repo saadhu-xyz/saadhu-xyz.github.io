@@ -202,6 +202,9 @@ code {
 .card h4 { margin: 0; font-size: 1.15rem; }
 .card-meta { font-family: var(--mono); font-size: .76rem; color: var(--text-mut); }
 .card-desc { color: var(--text-dim); font-size: .93rem; margin: 0 0 20px; flex: 1; }
+/* Sits under a card's code block: the "read it first" aside, small and quiet so
+   the command above it stays the thing the eye lands on. */
+.card-note { color: var(--text-mut); font-size: .82rem; margin: 10px 0 16px; }
 .your-os-badge {
   display: inline-block; font-family: var(--mono); font-size: .68rem; letter-spacing: .5px;
   color: #05210f; background: var(--accent); padding: 2px 8px; border-radius: 999px; margin-left: 8px; vertical-align: middle;
@@ -217,10 +220,23 @@ code {
   background: rgba(74,222,128,.08); border: 1px solid rgba(74,222,128,.25); }
 .step-body h4 { margin: 6px 0 8px; font-size: 1.1rem; }
 .step-body p { color: var(--text-dim); margin: 0 0 14px; }
+/* .code-block carries no margin of its own so it can sit flush where a step
+   wants it to; this is the one adjacency that needs air. */
+.step-body .code-block + .btn-row { margin-top: 16px; }
+.step-body .btn-row + .callout { margin-top: 16px; }
 
 .code-block { position: relative; background: var(--panel-2); border: 1px solid var(--line); border-radius: var(--radius-sm); }
-.code-block pre { margin: 0; padding: 16px 18px; overflow-x: auto; font-family: var(--mono); font-size: .84rem; line-height: 1.7; }
+/* Right padding clears the absolutely-positioned Copy button, which otherwise
+   sits on top of the last characters of any line long enough to reach it — the
+   curl one-liner in the macOS card being the one that actually does. */
+.code-block pre { margin: 0; padding: 16px 76px 16px 18px; overflow-x: auto; font-family: var(--mono); font-size: .84rem; line-height: 1.7; }
 .code-block code { background: none; border: none; padding: 0; color: var(--text); }
+/* A one-liner meant to be copied whole should never scroll half of itself out
+   of view — wrap it instead. Combined with the pre's right padding, the wrap
+   point also keeps text clear of the Copy button. Terminal transcripts keep the
+   default scrolling, where preserved columns matter more than seeing every
+   character at once. */
+.code-block.is-wrap pre { white-space: pre-wrap; overflow-wrap: anywhere; }
 .copy {
   position: absolute; top: 10px; right: 10px; font-family: var(--mono); font-size: .72rem;
   color: var(--text-dim); background: var(--panel); border: 1px solid var(--line);
