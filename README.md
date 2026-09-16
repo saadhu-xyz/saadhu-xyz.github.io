@@ -16,8 +16,8 @@ A single, self-contained static site for distributing Anton's binaries:
 python3 -m http.server 3000
 ```
 
-No build step, no dependencies. Five files: `index.html`, `styles.css`, `app.js`,
-`releases.json`, `install.sh`.
+No build step, no dependencies. Six files: `index.html`, `install-script.html`,
+`styles.css`, `app.js`, `releases.json`, `install.sh`.
 
 ## The macOS installer (`install.sh`)
 
@@ -50,6 +50,23 @@ It lives at the repo root rather than under a subdirectory because the URL is th
 interface: it is pasted into terminals and quoted in docs, and should not move.
 `plutil` parses the manifest, so there is no `jq` or `python3` dependency on the
 user's Mac.
+
+### Reading it before running it (`install-script.html`)
+
+GitHub Pages serves `.sh` as `application/x-sh`, which browsers download rather
+than display, and Pages has no way to override a response header. So a plain link
+to `install.sh` hands over a file instead of showing one — the wrong answer for a
+link whose entire job is "look at this before you pipe it into bash".
+
+`install-script.html` fetches `./install.sh` at the URL the curl command reads and
+prints it. Fetching sidesteps the Content-Type question entirely, and because the
+bytes come from that URL rather than from a pasted copy, what is read cannot drift
+from what is run. Linking to the file on GitHub would have been one line, but it
+shows the repo's copy rather than what is being served.
+
+Highlighting is a ~10-line tokenizer rather than a CDN library, deliberately: a page
+that exists to be audited should not itself load third-party script. The file's text
+is HTML-escaped before any markup is added to it.
 
 ## Deploy
 

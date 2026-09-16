@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>install.sh — Anton</title>
+<meta name="description" content="The macOS install script for Anton, shown in full. Read it before piping it into bash." />
+<link rel="stylesheet" href="./styles.css" />
+<style>
+  /* This page exists because GitHub Pages serves .sh as application/x-sh, which
+     browsers download rather than display, and Pages offers no way to override a
+     response header. Rather than link off-site to the repo, the script is fetched
+     from the very URL the curl command uses and printed here — so what is read is
+     literally what is run, not a copy that could drift from it. */
+  .viewer { max-width: 900px; margin: 0 auto; padding: 40px 24px 80px; }
+  .viewer-head { margin-bottom: 28px; }
+  .viewer-head h1 { font-size: 1.6rem; margin: 10px 0 10px; letter-spacing: -.02em; }
+  .viewer-head p { color: var(--text-dim); margin: 0 0 18px; }
+  .viewer-back { font-family: var(--mono); font-size: .8rem; color: var(--text-mut); }
+  .viewer-back a { color: var(--accent-2); text-decoration: none; }
+  .viewer-back a:hover { color: var(--accent); }
+  .src { max-height: none; }
+  .src pre { padding: 20px 22px; font-size: .8rem; line-height: 1.75; white-space: pre; }
+  .src .c { color: var(--text-mut); }        /* comments — most of this file */
+  .src .s { color: var(--accent); }          /* strings */
+  .src .k { color: var(--accent-2); font-weight: 600; }
+  .meta { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center;
+          font-family: var(--mono); font-size: .76rem; color: var(--text-mut); margin: 14px 0 0; }
+  .meta a { color: var(--accent-2); text-decoration: underline; text-underline-offset: 2px;
+            text-decoration-color: rgba(56,189,248,.45); }
+  .meta a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+</style>
+</head>
+<body>
+  <div class="viewer">
+    <div class="viewer-head">
+      <div class="viewer-back"><a href="./#quickstart">&larr; Anton</a></div>
+      <h1>install.sh</h1>
+      <p>
+        The whole macOS installer, fetched live from the same URL the command below reads.
+        Nothing here is a copy — this is the file that runs.
+      </p>
+      <div class="code-block is-wrap">
+        <button class="copy" data-copy>Copy</button>
+        <pre><code>curl -fsSL https://saadhu-xyz.github.io/install.sh | bash</code></pre>
+      </div>
+    </div>
+
+    <div class="code-block src">
+      <button class="copy" data-copy>Copy</button>
+      <pre><code id="src">Loading…</code></pre>
+    </div>
+
+    <div class="meta">
+      <span id="meta-size"></span>
+      <a href="./install.sh" download>Download the raw file</a>
+      <a href="https://github.com/saadhu-xyz/saadhu-xyz.github.io/blob/main/install.sh" rel="noopener">View on GitHub</a>
+    </div>
+  </div>
+
+<script>
+/* Shell is highlighted with a deliberately small tokenizer rather than a CDN
+   library: a page whose whole purpose is "read this before you run it" should
+   not itself pull in third-party script to render. Text is escaped first, so
+   the file's own contents can never become markup. */
+const esc = (t) => t.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+
+function highlight(src) {
+  const KEYWORDS = /\b(if|then|elif|else|fi|for|while|do|done|case|esac|function|local|return|exit|set|trap|echo|printf|read)\b/g;
+  return esc(src).split("\n").map((line) => {
+    // A full-line comment is the common shape in this file; mark it and stop,
+    // so a # inside a string on a code line is not mistaken for one.
+    if (/^\s*#/.test(line)) return '<span class="c">' + line + "</span>";
+    return line
+      .replace(/("[^"]*"|'[^']*')/g, '<span class="s">$1</span>')
+      .replace(KEYWORDS, '<span class="k">$1</span>');
+  }).join("\n");
+}
+
+fetch("./install.sh", { cache: "no-cache" })
+  .then((r) => { if (!r.ok) throw new Error(r.status); return r.text(); })
+  .then((text) => {
+    document.getElementById("src").innerHTML = highlight(text);
+    const kb = (new Blob([text]).size / 1024).toFixed(1);
+    document.getElementById("meta-size").textContent = text.split("\n").length + " lines · " + kb + " KB";
+  })
+  .catch(() => {
+    // Offline, or opened over file://. Say so plainly and leave the two links
+    // below as the way through, rather than showing an empty box.
+    document.getElementById("src").textContent =
+      "Could not load install.sh from this page.\nUse the links below to read it instead.";
+  });
+
+document.querySelectorAll("[data-copy]").forEach((btn) => {
+  btn.addEventListener("click", async () => {
+    const code = btn.parentElement.querySelector("code");
+    try {
+      await navigator.clipboard.writeText(code.innerText);
+      const prev = btn.textContent;
+      btn.textContent = "Copied ✓";
+      btn.classList.add("copied");
+      setTimeout(() => { btn.textContent = prev; btn.classList.remove("copied"); }, 1400);
+    } catch { btn.textContent = "Press ⌘/Ctrl+C"; }
+  });
+});
+</script>
+</body>
+</html>
