@@ -198,9 +198,10 @@
             </div>
           </div>
           <p class="card-desc">
-            A drag-to-install app that bundles and supervises all three services. Pick the DMG
-            that matches your chip — then follow the <a href="#quickstart">macOS quick start</a>
-            (it's unsigned, so there's one extra command).
+            A drag-to-install app that bundles and supervises all three services. One line in
+            Terminal installs the right one for your chip — see the
+            <a href="#quickstart">macOS quick start</a>. These direct links are the manual path,
+            and need a Gatekeeper step because the build is unsigned.
           </p>
           <div class="btn-row">
             <a class="btn btn-primary" data-dl="macos-arm64">Apple Silicon (.dmg)</a>
@@ -243,8 +244,8 @@
         <span class="kicker">Quick start · macOS</span>
         <h2>Install on a MacBook</h2>
         <p class="section-sub">
-          No Xcode, no Go toolchain, no building. Download the DMG, run one installer, and the
-          menu bar app supervises all three services for you.
+          No Xcode, no Go toolchain, no building. One line in Terminal, and the menu bar app
+          supervises all three services for you.
         </p>
       </div>
 
@@ -252,10 +253,30 @@
         <div class="step">
           <div class="step-badge">1</div>
           <div class="step-body">
-            <h4>Get the DMG that matches your chip</h4>
+            <h4>Run one line</h4>
             <p>
-              There is no universal binary, so grab the right one. Check your architecture, then
-              download <b>Apple Silicon</b> or <b>Intel</b> from the section above.
+              It detects your chip, downloads the matching DMG, verifies it against the published
+              <code>SHA256</code>, installs Anton to <code>/Applications</code>, adds the Claude Code
+              plugin, and launches it. No prompts, nothing to click through.
+            </p>
+            <div class="code-block">
+              <button class="copy" data-copy>Copy</button>
+              <pre><code>curl -fsSL https://saadhu-xyz.github.io/install.sh | bash</code></pre>
+            </div>
+            <p>
+              Prefer to read it first? It's a plain shell script —
+              <a href="./install.sh">install.sh</a>.
+            </p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-badge">2</div>
+          <div class="step-body">
+            <h4>Or install from the DMG by hand</h4>
+            <p>
+              There is no universal binary, so grab the one that matches your chip from the
+              section above, open it, and double-click <code>Install Anton.command</code>.
             </p>
             <div class="code-block">
               <button class="copy" data-copy>Copy</button>
@@ -263,61 +284,41 @@
 <span class="c-dim"># arm64  → Anton-arm64.dmg   (M1/M2/M3/M4)</span>
 <span class="c-dim"># x86_64 → Anton-x86_64.dmg  (Intel)</span></code></pre>
             </div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step-badge">2</div>
-          <div class="step-body">
-            <h4>Open the DMG and run the installer</h4>
-            <p>
-              Double-click <code>Install Anton.command</code> inside the DMG. It copies Anton to
-              <code>/Applications</code>, clears the quarantine flag, re-signs the bundle locally,
-              installs the Claude Code plugin, and launches it. If the installer itself is blocked,
-              <b>right-click it → Open</b>.
-            </p>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step-badge">3</div>
-          <div class="step-body">
-            <h4>Unsigned app? Clear the quarantine flag</h4>
             <div class="callout">
               <span class="callout-mark">!</span>
               <div>
                 <p>
-                  Anton is an <b>unsigned personal build</b> — there's no Apple Developer
-                  signature or notarization. On a Mac that didn't build it, Gatekeeper blocks the
-                  first launch, usually with the misleading
-                  <b>"Anton is damaged and can't be opened"</b> error on Apple Silicon. Nothing is
-                  damaged.
+                  <b>That double-click will be blocked</b> —
+                  <i>"Apple could not verify 'Install Anton.command' is free of malware"</i>.
+                  Anton is an <b>unsigned personal build</b>, and everything inside a
+                  browser-downloaded DMG inherits its <b>quarantine</b> flag. The installer is a
+                  shell script, which carries no signature for Gatekeeper to check — so no amount
+                  of signing or notarizing would clear it.
                 </p>
                 <p>
-                  macOS only blocks files carrying the <b>download quarantine</b> flag, which is
-                  attached by browsers, Mail, Messages, and <b>AirDrop</b> — so moving the app
-                  from one MacBook to another is exactly when you'll hit this. Transfer it with
-                  <code>scp</code>, <code>rsync</code>, <code>curl</code>, or a USB drive copied
-                  in Terminal and no quarantine is set at all.
+                  Older guides say to <b>right-click → Open</b>. macOS 15 removed that bypass, so
+                  on macOS 15 and later it is no longer offered. Two ways through remain:
+                  <b>System Settings → Privacy &amp; Security</b>, scroll to the bottom,
+                  <b>Open Anyway</b> — or run it from Terminal, below. Gatekeeper's check lives in
+                  double-click and <code>open</code>, never in <code>bash</code>.
                 </p>
               </div>
             </div>
-            <p>If you dragged the app across manually, or the installer was blocked, run:</p>
             <div class="code-block">
               <button class="copy" data-copy>Copy</button>
-              <pre><code><span class="c-dim"># strip the quarantine flag macOS attached on transfer</span>
+              <pre><code><span class="c-dim"># run the bundled installer without tripping Gatekeeper</span>
+bash "/Volumes/Anton (arm64)/Install Anton.command"
+
+<span class="c-dim"># or, if you dragged Anton.app across yourself</span>
 xattr -cr /Applications/Anton.app
-
-<span class="c-dim"># re-apply a local (ad-hoc) signature so Gatekeeper accepts it</span>
 codesign --force --deep --sign - /Applications/Anton.app
-
 open /Applications/Anton.app</code></pre>
             </div>
           </div>
         </div>
 
         <div class="step">
-          <div class="step-badge">4</div>
+          <div class="step-badge">3</div>
           <div class="step-body">
             <h4>Check the menu bar</h4>
             <p>
