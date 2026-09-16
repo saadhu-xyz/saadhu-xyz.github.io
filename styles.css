@@ -248,7 +248,7 @@ code {
 /* ---------------- INLINE PROSE LINKS ----------------
    Global `a` is color:inherit/no-underline for nav, footer, cards and
    buttons. Links inside body copy need to actually look like links. */
-.card-desc a, .step-body p a, .dl-note a {
+.card-desc a, .card-note a, .step-body p a, .dl-note a {
   color: var(--accent-2);
   text-decoration: underline;
   text-underline-offset: 2px;
@@ -256,7 +256,7 @@ code {
   text-decoration-color: rgba(56,189,248,.45);
   transition: color .15s, text-decoration-color .15s;
 }
-.card-desc a:hover, .step-body p a:hover, .dl-note a:hover {
+.card-desc a:hover, .card-note a:hover, .step-body p a:hover, .dl-note a:hover {
   color: var(--accent); text-decoration-color: var(--accent);
 }
 
