@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "version": "v1.2.0",
-  "published_at": "2026-09-16T16:39:54Z",
-  "notes_url": "https://github.com/saadhu-xyz/anton-releases/releases/tag/v1.2.0",
+  "version": "v1.2.1",
+  "published_at": "2026-09-16T18:53:00Z",
+  "notes_url": "https://github.com/saadhu-xyz/anton-releases/releases/tag/v1.2.1",
   "min_client_version": "",
   "min_worker_version": "",
   "artifacts": {
@@ -25,9 +25,9 @@
       "size": 12974738
     },
     "android": {
-      "version": "v1.2.0",
-      "url": "https://github.com/saadhu-xyz/anton-releases/releases/download/v1.2.0/anton.apk",
-      "sha256": "9df152a4ca900ef31d7f4363a782d8d6a012f4d7aa90b65932e8731190d057f9",
+      "version": "v1.2.1",
+      "url": "https://github.com/saadhu-xyz/anton-releases/releases/download/v1.2.1/anton.apk",
+      "sha256": "b4419d473aeeb8ce49db476791bf080ced68269dd647a0860cfe5e4095f131c4",
       "size": 87149820
     }
   }
