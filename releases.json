@@ -1,28 +1,28 @@
 {
   "schema": 1,
-  "version": "v1.4.1",
-  "published_at": "2026-09-18T16:47:55Z",
-  "notes_url": "https://github.com/saadhu-xyz/anton-releases/releases/tag/v1.4.1",
+  "version": "v1.4.2",
+  "published_at": "2026-09-19T00:46:58Z",
+  "notes_url": "https://github.com/saadhu-xyz/anton-releases/releases/tag/v1.4.2",
   "min_client_version": "",
   "min_worker_version": "",
   "artifacts": {
     "macos-arm64": {
-      "version": "v1.4.0",
-      "url": "https://github.com/saadhu-xyz/anton-releases/releases/download/v1.4.0/Anton-arm64.dmg",
-      "sha256": "cc37d08e595dff2b968b272181d5d95e8e9b35d83384bbaf621d5a9c917cf789",
-      "size": 11884476
+      "version": "v1.4.1",
+      "url": "https://github.com/saadhu-xyz/anton-releases/releases/download/v1.4.1/Anton-arm64.dmg",
+      "sha256": "0bf122c4f56253814145549a837953fa33d523e31deb990ca5de5835c5946740",
+      "size": 11884629
     },
     "linux-x86": {
-      "version": "v1.4.1",
-      "url": "https://github.com/saadhu-xyz/anton-releases/releases/download/v1.4.1/anton-linux-amd64.tar.gz",
-      "sha256": "3926d4a5b85ff56b2d89833a9e1501817de9ed7c1107c168d13b1b8d9b4408f7",
-      "size": 12562082
+      "version": "v1.4.2",
+      "url": "https://github.com/saadhu-xyz/anton-releases/releases/download/v1.4.2/anton-linux-amd64.tar.gz",
+      "sha256": "cd3d214deb6e83503cfd95755e235bfd32499e25181893efe58b51fa4e47da63",
+      "size": 12563147
     },
     "macos-intel": {
-      "version": "v1.4.0",
-      "url": "https://github.com/saadhu-xyz/anton-releases/releases/download/v1.4.0/Anton-x86_64.dmg",
-      "sha256": "f4528a23975e08dc5b2fab209f1a7f3547261cf7130322425dff7e55cc6b72a1",
-      "size": 13035497
+      "version": "v1.4.1",
+      "url": "https://github.com/saadhu-xyz/anton-releases/releases/download/v1.4.1/Anton-x86_64.dmg",
+      "sha256": "82187daab455823feaaef5adf1e62d11b699f60aa4b68972196e83dbe1845d61",
+      "size": 13035568
     },
     "android": {
       "version": "v1.4.1",
