@@ -16,8 +16,17 @@ A single, self-contained static site for distributing Anton's binaries:
 python3 -m http.server 3000
 ```
 
-No build step, no dependencies. Six files: `index.html`, `install-script.html`,
-`styles.css`, `app.js`, `releases.json`, `install.sh`.
+No build step, no dependencies:
+
+| File | What |
+|---|---|
+| `index.html` | the landing page |
+| `styles.css`, `app.js` | its styles and download wiring |
+| `releases.json` | the release manifest, refreshed by `packaging/release.sh` |
+| `install.sh` | the macOS installer |
+| `install-linux.sh` | the Linux CLI installer |
+| `install-script.html`, `install-linux-script.html` | "read it before you run it" pages |
+| `script-viewer.css`, `script-viewer.js` | shared by those two pages |
 
 ## The macOS installer (`install.sh`)
 
@@ -51,18 +60,52 @@ interface: it is pasted into terminals and quoted in docs, and should not move.
 `plutil` parses the manifest, so there is no `jq` or `python3` dependency on the
 user's Mac.
 
-### Reading it before running it (`install-script.html`)
+## The Linux installer (`install-linux.sh`)
+
+Served at <https://saadhu-xyz.github.io/install-linux.sh> and run as:
+
+```sh
+curl -fsSL https://saadhu-xyz.github.io/install-linux.sh | bash
+curl -fsSL https://saadhu-xyz.github.io/install-linux.sh | bash -s -- --no-startup
+```
+
+There is no Gatekeeper story here — nothing on Linux is signed, quarantined or
+blocked. This exists for the ordinary reason: one line beats "download, verify,
+untar, read the README, run the installer".
+
+It follows the same delegation as the macOS script, and for the same reason. It
+reads `releases.json`, downloads the `linux-x86` tarball, verifies the published
+SHA256, unpacks it, and runs the `install-anton.sh` that ships inside — which is
+where the install steps actually live, in the anton repo at
+`packaging/linux/cli-template/install-anton.sh`, versioned with the build they
+install. Flags after `--` are passed straight through to it.
+
+That installer puts the four binaries in `~/.local/share/anton/bin` with the three
+services linked into `~/.local/bin`, installs the Claude Code plugin, writes systemd
+**user** units, offers to enable start-at-boot (`systemctl --user enable` plus
+`loginctl enable-linger`), starts everything, and ends with the two dashboard links,
+the admin token and the mobile pairing QR. Nothing needs root.
+
+macOS has `plutil`; Linux has no JSON parser it can count on, so `manifest_field`
+tries `jq`, then `python3`, then falls back to flattening the document and matching
+within one artifact's braces — which holds because every field it reads is a string.
+
+### Reading them before running them (`install-script.html`, `install-linux-script.html`)
 
 GitHub Pages serves `.sh` as `application/x-sh`, which browsers download rather
 than display, and Pages has no way to override a response header. So a plain link
 to `install.sh` hands over a file instead of showing one — the wrong answer for a
 link whose entire job is "look at this before you pipe it into bash".
 
-`install-script.html` fetches `./install.sh` at the URL the curl command reads and
-prints it. Fetching sidesteps the Content-Type question entirely, and because the
-bytes come from that URL rather than from a pasted copy, what is read cannot drift
-from what is run. Linking to the file on GitHub would have been one line, but it
-shows the repo's copy rather than what is being served.
+Each page fetches its script (`./install.sh`, `./install-linux.sh`) at the URL the
+curl command reads and prints it. Fetching sidesteps the Content-Type question
+entirely, and because the bytes come from that URL rather than from a pasted copy,
+what is read cannot drift from what is run. Linking to the file on GitHub would have
+been one line, but it shows the repo's copy rather than what is being served.
+
+The two pages differ only in which file they name, so the behaviour lives once in
+`script-viewer.js` and the layout once in `script-viewer.css`; the page says which
+script to show with `<code id="src" data-src="./install-linux.sh">`.
 
 Highlighting is a ~10-line tokenizer rather than a CDN library, deliberately: a page
 that exists to be audited should not itself load third-party script. The file's text

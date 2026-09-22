@@ -218,15 +218,26 @@
           <div class="card-top">
             <div class="card-icon">🐧</div>
             <div>
-              <h4>Linux</h4>
-              <span class="card-meta">raw binaries · systemd units · <span data-ver="linux-amd64"></span></span>
+              <h4>CLI</h4>
+              <span class="card-meta">Linux x86-64 · systemd units · <span data-ver="linux-amd64"></span></span>
             </div>
           </div>
           <p class="card-desc">
-            All three binaries plus their systemd units. The worker can also run standalone on
-            any approved machine.
+            All three services, the Claude Code plugin and systemd user units. One line installs
+            them: the script verifies the tarball against the published <code>SHA256</code>, asks
+            whether Anton should start at boot, and finishes with your dashboard links and the
+            pairing QR for your phone. No root — everything lands in your home directory.
           </p>
-          <a class="btn btn-primary btn-block" data-dl="linux-amd64">x86-64 (tar.gz)</a>
+          <div class="code-block is-wrap">
+            <button class="copy" data-copy>Copy</button>
+            <pre><code>curl -fsSL https://saadhu-xyz.github.io/install-linux.sh | bash</code></pre>
+          </div>
+          <p class="card-note">
+            It's a plain shell script — <a href="./install-linux-script.html">read it first</a> if you'd rather.
+          </p>
+          <div class="btn-row">
+            <a class="btn btn-ghost" data-dl="linux-amd64">Or download the tarball →</a>
+          </div>
         </article>
       </div>
 
@@ -367,17 +378,30 @@ open /Applications/Anton.app</code></pre>
           <div class="step-badge">1</div>
           <div class="step-body">
             <h4>Run the services</h4>
-            <p>On macOS, install <code>Anton.app</code> and it supervises all three — see the <a href="#quickstart">macOS quick start</a>. On Linux, each service builds to one binary and ships a systemd unit:</p>
+            <p>
+              On macOS, install <code>Anton.app</code> and it supervises all three — see the
+              <a href="#quickstart">macOS quick start</a>. On Linux, one line installs the CLI:
+              the binaries, the Claude Code plugin and a systemd <b>user</b> unit per service.
+            </p>
+            <div class="code-block is-wrap">
+              <button class="copy" data-copy>Copy</button>
+              <pre><code>curl -fsSL https://saadhu-xyz.github.io/install-linux.sh | bash</code></pre>
+            </div>
+            <p>
+              It asks once whether Anton should start at login and boot, and enables
+              <code>loginctl enable-linger</code> if you say yes — without which user services
+              stop at logout, which on a headless box is exactly when you need them. Re-run the
+              same line to upgrade; <code>~/.anton</code> is left alone.
+            </p>
             <div class="code-block">
               <button class="copy" data-copy>Copy</button>
-              <pre><code><span class="c-dim"># build a service (Go modules)</span>
-cd interactive-development-server && go build
+              <pre><code><span class="c-dim"># installed layout</span>
+~/.local/share/anton/bin/   <span class="c-dim"># the four binaries + bundled plugin</span>
+~/.local/bin/anton          <span class="c-dim"># on your PATH</span>
+~/.anton/                   <span class="c-dim"># config · data · secrets</span>
+~/AntonProjects/            <span class="c-dim"># project tree (--work-dir to change)</span>
 
-<span class="c-dim"># or install the release binaries to PATH</span>
-sudo install anton anton-ticketing anton-impl-server /usr/local/bin/
-
-<span class="c-dim"># start via systemd (units under each service-file/)</span>
-systemctl --user start anton anton-ticketing</code></pre>
+systemctl --user status anton anton-ticketing anton-impl-server</code></pre>
             </div>
           </div>
         </div>
@@ -386,11 +410,19 @@ systemctl --user start anton anton-ticketing</code></pre>
           <div class="step-badge">2</div>
           <div class="step-body">
             <h4>Check status &amp; pairing</h4>
-            <p>Run <code>./anton-status</code> anytime to see which services are up, the admin token, and the mobile pairing QR. Safe to re-run, always exits 0.</p>
+            <p>
+              The installer ends with all of this — your two dashboards, the admin token and the
+              pairing QR. Any of it can be re-displayed later:
+            </p>
             <div class="code-block">
               <button class="copy" data-copy>Copy</button>
-              <pre><code>./anton-status
-<span class="c-dim"># → running services · admin token · pairing QR</span></code></pre>
+              <pre><code>anton --print-pairing-qr              <span class="c-dim"># QR + the URLs the app will try</span>
+anton-ticketing --print-admin-token   <span class="c-dim"># admin token</span>
+journalctl --user -u anton -f         <span class="c-dim"># logs</span>
+
+<span class="c-dim"># the two dashboards</span>
+http://127.0.0.1:8765/dashboard/      <span class="c-dim"># sessions</span>
+http://127.0.0.1:8766/dashboard/      <span class="c-dim"># tickets &amp; workers</span></code></pre>
             </div>
           </div>
         </div>

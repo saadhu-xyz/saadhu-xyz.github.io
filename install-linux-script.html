@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>install-linux.sh — Anton</title>
+<meta name="description" content="The Linux CLI install script for Anton, shown in full. Read it before piping it into bash." />
+<link rel="stylesheet" href="./styles.css" />
+<link rel="stylesheet" href="./script-viewer.css" />
+</head>
+<body>
+  <div class="viewer">
+    <div class="viewer-head">
+      <div class="viewer-back"><a href="./#download">&larr; Anton</a></div>
+      <h1>install-linux.sh</h1>
+      <p>
+        The whole Linux CLI installer, fetched live from the same URL the command below reads.
+        Nothing here is a copy — this is the file that runs.
+      </p>
+      <div class="code-block is-wrap">
+        <button class="copy" data-copy>Copy</button>
+        <pre><code>curl -fsSL https://saadhu-xyz.github.io/install-linux.sh | bash</code></pre>
+      </div>
+      <p>
+        It is short on purpose. It reads the release manifest, downloads the tarball for this
+        machine, checks it against the published <code>SHA256</code>, unpacks it, and runs the
+        <code>install-anton.sh</code> that ships inside the release. The install steps themselves
+        live in the tarball, versioned with the build they install — so what you read below is
+        the fetch-and-verify half, and the release carries the other.
+      </p>
+      <p>
+        Nothing here needs root: the binaries land in <code>~/.local/share/anton</code>, the
+        commands in <code>~/.local/bin</code>, and the services run as systemd
+        <b>user</b> units.
+      </p>
+    </div>
+
+    <div class="code-block src">
+      <button class="copy" data-copy>Copy</button>
+      <pre><code id="src" data-src="./install-linux.sh">Loading…</code></pre>
+    </div>
+
+    <div class="meta">
+      <span id="meta-size"></span>
+      <a href="./install-linux.sh" download>Download the raw file</a>
+      <a href="https://github.com/saadhu-xyz/saadhu-xyz.github.io/blob/main/install-linux.sh" rel="noopener">View on GitHub</a>
+      <a href="./install-script.html">On a Mac? Read install.sh</a>
+    </div>
+  </div>
+
+<script src="./script-viewer.js"></script>
+</body>
+</html>
