@@ -1,0 +1,20 @@
+/* Layout for the two "read the installer before you run it" pages
+   (install-script.html, install-linux-script.html). Kept out of styles.css
+   because nothing on the landing page uses any of it. */
+.viewer { max-width: 900px; margin: 0 auto; padding: 40px 24px 80px; }
+.viewer-head { margin-bottom: 28px; }
+.viewer-head h1 { font-size: 1.6rem; margin: 10px 0 10px; letter-spacing: -.02em; }
+.viewer-head p { color: var(--text-dim); margin: 0 0 18px; }
+.viewer-back { font-family: var(--mono); font-size: .8rem; color: var(--text-mut); }
+.viewer-back a { color: var(--accent-2); text-decoration: none; }
+.viewer-back a:hover { color: var(--accent); }
+.src { max-height: none; }
+.src pre { padding: 20px 22px; font-size: .8rem; line-height: 1.75; white-space: pre; }
+.src .c { color: var(--text-mut); }        /* comments — most of these files */
+.src .s { color: var(--accent); }          /* strings */
+.src .k { color: var(--accent-2); font-weight: 600; }
+.meta { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center;
+        font-family: var(--mono); font-size: .76rem; color: var(--text-mut); margin: 14px 0 0; }
+.meta a { color: var(--accent-2); text-decoration: underline; text-underline-offset: 2px;
+          text-decoration-color: rgba(56,189,248,.45); }
+.meta a:hover { color: var(--accent); text-decoration-color: var(--accent); }
