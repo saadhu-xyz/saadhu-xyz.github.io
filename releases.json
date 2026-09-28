@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "version": "v1.7.1",
-  "published_at": "2026-09-27T21:50:21Z",
-  "notes_url": "https://github.com/saadhu-xyz/anton-releases/releases/tag/v1.7.1",
+  "version": "v1.7.2",
+  "published_at": "2026-09-28T05:25:36Z",
+  "notes_url": "https://github.com/saadhu-xyz/anton-releases/releases/tag/v1.7.2",
   "min_client_version": "",
   "min_worker_version": "",
   "artifacts": {
@@ -13,10 +13,10 @@
       "size": 14723722
     },
     "linux-x86": {
-      "version": "v1.7.1",
-      "url": "https://github.com/saadhu-xyz/anton-releases/releases/download/v1.7.1/anton-linux-amd64.tar.gz",
-      "sha256": "ba01accf5b47208708a80d01dd3a59ce93e65c7bb2519192cbec36581dd97ad0",
-      "size": 15642174
+      "version": "v1.7.2",
+      "url": "https://github.com/saadhu-xyz/anton-releases/releases/download/v1.7.2/anton-linux-amd64.tar.gz",
+      "sha256": "0d98e3c798a848efd91219c3d63a2265ebb98a5b675c74112f51bc22d6f96fbb",
+      "size": 15674624
     },
     "macos-intel": {
       "version": "v1.7.1",
@@ -25,9 +25,9 @@
       "size": 16206830
     },
     "android": {
-      "version": "v1.7.1",
-      "url": "https://github.com/saadhu-xyz/anton-releases/releases/download/v1.7.1/anton.apk",
-      "sha256": "13211804056ae34ac0467609549fbf63bb93a20a5cde49ac4e4ce0ec74ecdf7a",
+      "version": "v1.7.2",
+      "url": "https://github.com/saadhu-xyz/anton-releases/releases/download/v1.7.2/anton.apk",
+      "sha256": "16125222e28f3bddc58d3fe4537d521085044f1f90e9cd7d08c2db12f81198a4",
       "size": 89022978
     }
   }
