@@ -1,34 +1,34 @@
 {
   "schema": 1,
-  "version": "v1.7.9",
-  "published_at": "2026-10-02T01:33:35Z",
-  "notes_url": "https://github.com/saadhu-xyz/anton-releases/releases/tag/v1.7.9",
+  "version": "v1.7.10",
+  "published_at": "2026-10-04T22:26:39Z",
+  "notes_url": "https://github.com/saadhu-xyz/anton-releases/releases/tag/v1.7.10",
   "min_client_version": "",
   "min_worker_version": "",
   "artifacts": {
     "android": {
-      "version": "v1.7.9",
-      "url": "https://github.com/saadhu-xyz/anton-releases/releases/download/v1.7.9/anton.apk",
-      "sha256": "aa278bfc43cddeace2529c6954909d3d6ce2084862366ffb568efbff1d95fdbb",
-      "size": 90946219
+      "version": "v1.7.10",
+      "url": "https://github.com/saadhu-xyz/anton-releases/releases/download/v1.7.10/anton.apk",
+      "sha256": "1c7d9a908cf954db794b007f1c15360ef1766705e2c69120845fdbc08df4ed4b",
+      "size": 91677491
     },
     "linux-x86": {
-      "version": "v1.7.9",
-      "url": "https://github.com/saadhu-xyz/anton-releases/releases/download/v1.7.9/anton-linux-amd64.tar.gz",
-      "sha256": "4ea50614763babcec3ddd41dd2a2e7a7f15e79ec2163d3ed71329e0391b588dd",
-      "size": 15705023
+      "version": "v1.7.10",
+      "url": "https://github.com/saadhu-xyz/anton-releases/releases/download/v1.7.10/anton-linux-amd64.tar.gz",
+      "sha256": "12a57b50d754c58bba0a0477f83289a7712e2c61396af79b68397169a82bfd2c",
+      "size": 17077754
     },
     "macos-arm64": {
-      "version": "v1.7.9",
-      "url": "https://github.com/saadhu-xyz/anton-releases/releases/download/v1.7.9/Anton-arm64.dmg",
-      "sha256": "7e55c19c834ef3c4ed683fc4e7d2114539013b78161703ec287b4ae9c03fe2e9",
-      "size": 15921790
+      "version": "v1.7.10",
+      "url": "https://github.com/saadhu-xyz/anton-releases/releases/download/v1.7.10/Anton-arm64.dmg",
+      "sha256": "e1d7453f7842d0e78697d2443cb411c3f7359993853b8ca08f716bcf3f050ee5",
+      "size": 15963045
     },
     "macos-intel": {
-      "version": "v1.7.9",
-      "url": "https://github.com/saadhu-xyz/anton-releases/releases/download/v1.7.9/Anton-x86_64.dmg",
-      "sha256": "5a844e53a1a2d440b87b316628b5f8e089dd79e2a281351fff0a59b7161debc6",
-      "size": 17660534
+      "version": "v1.7.10",
+      "url": "https://github.com/saadhu-xyz/anton-releases/releases/download/v1.7.10/Anton-x86_64.dmg",
+      "sha256": "8e413fa96ce4175ddba862245c8a0b5833b5c3dac2503c3eb3e590a831cf0728",
+      "size": 17709575
     }
   }
 }
