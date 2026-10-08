@@ -165,7 +165,7 @@
                 treat it like a password.
               </p>
               <figure class="guide-fig">
-                <a href="img/guide/mac-dashboard-token.svg" target="_blank" rel="noopener"><img src="img/guide/mac-dashboard-token.svg" width="760" height="330" loading="lazy"
+                <a href="img/guide/dash-admin-token.svg" target="_blank" rel="noopener"><img src="img/guide/dash-admin-token.svg" width="760" height="330" loading="lazy"
                      alt="The Tickets dashboard Settings page with the admin token field and Save token button" /></a>
               </figure>
             </div>
@@ -228,7 +228,7 @@
                 GitHub knows that key, every ticket fails at the clone.
               </p>
               <figure class="guide-fig">
-                <a href="img/guide/mac-workers.svg" target="_blank" rel="noopener"><img src="img/guide/mac-workers.svg" width="760" height="330" loading="lazy"
+                <a href="img/guide/dash-workers.svg" target="_blank" rel="noopener"><img src="img/guide/dash-workers.svg" width="760" height="330" loading="lazy"
                      alt="The Workers panel with Approve and Copy SSH Key buttons on a pending worker" /></a>
               </figure>
               <ol class="guide-list">
@@ -351,6 +351,10 @@ http://127.0.0.1:8766/dashboard/   <span class="c-dim"># tickets &amp; workers</
                 click <b>Save token</b>. Each browser remembers it, so it's once per computer — treat
                 it like a password.
               </p>
+              <figure class="guide-fig">
+                <a href="img/guide/dash-admin-token.svg" target="_blank" rel="noopener"><img src="img/guide/dash-admin-token.svg" width="760" height="330" loading="lazy"
+                     alt="The Tickets dashboard Settings page with the admin token field and Save token button" /></a>
+              </figure>
             </div>
           </div>
 
@@ -365,10 +369,20 @@ http://127.0.0.1:8766/dashboard/   <span class="c-dim"># tickets &amp; workers</
               </p>
               <p>
                 In the settings dashboard (<code>:8765</code>), under <b>Service Configuration</b>,
-                set <b>Work dir</b> to the full path and click <b>Save changes</b>. Then click
-                <b>Apply &amp; restart all services</b> in the banner that appears — the page
-                reloads once they're back.
+                set <b>Work dir</b> to the full path and click <b>Save changes</b>:
               </p>
+              <figure class="guide-fig">
+                <a href="img/guide/linux-workdir.svg" target="_blank" rel="noopener"><img src="img/guide/linux-workdir.svg" width="760" height="380" loading="lazy"
+                     alt="Service Configuration on Linux, saving to ~/.anton/config/services.env, with Work dir set to /home/you/projects" /></a>
+              </figure>
+              <p>
+                Then click <b>Apply &amp; restart all services</b> in the banner that appears — the
+                page reloads once the services are back:
+              </p>
+              <figure class="guide-fig">
+                <a href="img/guide/linux-restart.svg" target="_blank" rel="noopener"><img src="img/guide/linux-restart.svg" width="760" height="434" loading="lazy"
+                     alt="The settings dashboard after saving, with an Apply and restart all services button in the banner" /></a>
+              </figure>
               <p>
                 The same section holds the ports and the <code>claude</code>, <code>opencode</code>
                 and <code>git</code> commands. It saves them to
@@ -413,6 +427,10 @@ anton --list-devices             <span class="c-dim"># see who's paired</span></
                 The worker clones, branches and pushes with <b>its own SSH key</b>, not yours. Until
                 GitHub knows that key, every ticket fails at the clone.
               </p>
+              <figure class="guide-fig">
+                <a href="img/guide/dash-workers.svg" target="_blank" rel="noopener"><img src="img/guide/dash-workers.svg" width="760" height="330" loading="lazy"
+                     alt="The Workers panel with Approve and Copy SSH Key buttons on a pending worker" /></a>
+              </figure>
               <ol class="guide-list">
                 <li>In the Tickets dashboard, open <b>Workers</b> and <b>Approve</b> the pending worker.</li>
                 <li>Click <b>Copy SSH Key</b> on that worker.</li>

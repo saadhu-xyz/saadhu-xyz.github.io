@@ -22,7 +22,7 @@ No build step, no dependencies:
 |---|---|
 | `index.html` | the landing page |
 | `getting-started.html`, `guide.js` | the onboarding guide, in macOS and Linux tabs (`#macos`, `#linux`) |
-| `img/guide/` | the macOS tab's illustrations — drawn mockups, to be replaced by screenshots |
+| `img/guide/` | the guide's illustrations — drawn mockups, to be replaced by screenshots |
 | `styles.css`, `app.js` | its styles and download wiring |
 | `releases.json` | the release manifest, refreshed by `packaging/release.sh` |
 | `install.sh` | the macOS installer |
@@ -120,9 +120,11 @@ One page, two tabs: macOS and Linux. The open tab is the URL hash (`#macos`,
 (`#linux-pair`) opens its tab too. With no hash, `guide.js` picks Linux for
 Linux visitors and macOS for everyone else. Without JavaScript both show.
 
-The macOS tab is illustrated with **drawn mockups** in `img/guide/` — SVGs of the
-menu bar, pairing window and dashboards, made to match the real labels. They
-stand in for screenshots until real ones exist. To swap one, drop the screenshot
+Both tabs are illustrated with **drawn mockups** in `img/guide/` — SVGs made to
+match the real labels, standing in for screenshots until real ones exist.
+`mac-*` are the menu bar, pairing window and macOS settings dashboard;
+`linux-*` are the settings dashboard as it appears on Linux; `dash-*` are the
+Tickets dashboard, which is the same on both and shared by the two tabs. To swap one, drop the screenshot
 in `img/guide/` under the same name with its own extension (`mac-pairing.png`)
 and change that `<img>`'s `src`, `width` and `height` to match.
 
