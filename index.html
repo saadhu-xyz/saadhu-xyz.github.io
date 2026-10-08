@@ -18,7 +18,6 @@
       </a>
       <nav class="nav-links">
         <a href="#modes">Two modes</a>
-        <a href="#tickets">Ticket flow</a>
         <a href="#download">Download</a>
         <a href="#install">Install</a>
         <a href="./getting-started.html">Getting started</a>
@@ -124,30 +123,8 @@
     </div>
   </section>
 
-  <!-- ============ TICKET FLOW ============ -->
-  <section class="section section-alt" id="tickets">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="kicker">Drop-and-walk-away, end to end</span>
-        <h2>How a ticket flows</h2>
-        <p class="section-sub">
-          The <b>queue is the integration boundary</b> — the worker never touches the ticketing
-          database directly, so workers can be added or moved without API changes.
-        </p>
-      </div>
-      <div class="flow">
-        <div class="flow-step"><span class="flow-n">1</span><h4>Generate</h4><p>An autonomous run reviews an opted-in project against a paradigm — security, performance, testing — and emits structured tickets. Or you write one by hand.</p></div>
-        <div class="flow-step"><span class="flow-n">2</span><h4>Refine</h4><p>Open a ticket's AI chat to sharpen it into an implementation-ready prompt — the chat can edit the ticket's fields directly.</p></div>
-        <div class="flow-step"><span class="flow-n">3</span><h4>Triage</h4><p>On the phone, swipe to queue, backlog, reject, or archive.</p></div>
-        <div class="flow-step"><span class="flow-n">4</span><h4>Queue</h4><p>Send the ticket to the ordered implementation queue.</p></div>
-        <div class="flow-step"><span class="flow-n">5</span><h4>Implement</h4><p>A worker claims it, branches a git worktree, implements, code-reviews the diff (looping if needed), generates &amp; runs tests, and pushes a branch.</p></div>
-        <div class="flow-step flow-done"><span class="flow-n">6</span><h4>Review</h4><p>The ticket shows <b>Ready for Review</b> with a tappable PR link — and a Docker preview URL when deploy is enabled.</p></div>
-      </div>
-    </div>
-  </section>
-
   <!-- ============ DOWNLOAD ============ -->
-  <section class="section" id="download">
+  <section class="section section-alt" id="download">
     <div class="wrap">
       <div class="section-head">
         <span class="kicker">Download &amp; install</span>
@@ -312,15 +289,29 @@ journalctl --user -u anton -f</code></pre>
         </ul>
       </div>
 
-      <p class="dl-note">
-        Installed? Next, <a href="./getting-started.html">getting started</a>: connect over
-        Tailscale, point Anton at your projects, pair your phone, and give the worker GitHub access.
-      </p>
+      <!-- The way on from here: everything after the install line is the guide. -->
+      <a class="guide-next" href="./getting-started.html">
+        <div class="guide-next-copy">
+          <span class="guide-next-kicker">Installed? Next</span>
+          <h3>Getting started</h3>
+          <p>Six short steps from a running server to your first PR, illustrated for macOS and Linux.</p>
+          <span class="btn btn-primary">Open the guide →</span>
+        </div>
+        <ol class="guide-next-steps" aria-label="What the guide covers">
+            <li><span class="gn-dot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6.5a4 4 0 0 0-5.3 5.3L4 17l3 3 5.2-5.2a4 4 0 0 0 5.3-5.3l-2.6 2.6-2.4-.6-.6-2.4z"/></svg></span><span class="gn-label">Tools</span></li>
+            <li><span class="gn-dot"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.3 10.9l7.4-3.8M8.3 13.1l7.4 3.8"/></svg></span><span class="gn-label">Tailscale</span></li>
+            <li><span class="gn-dot"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg></span><span class="gn-label">Dashboards</span></li>
+            <li><span class="gn-dot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><span class="gn-label">Projects</span></li>
+            <li><span class="gn-dot"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/></svg></span><span class="gn-label">Pair phone</span></li>
+            <li><span class="gn-dot"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M11 12l8-8M16 7l2 2M18 5l2 2"/></svg></span><span class="gn-label">GitHub key</span></li>
+            <li class="gn-done"><span class="gn-dot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span class="gn-label">First PR</span></li>
+        </ol>
+      </a>
     </div>
   </section>
 
   <!-- ============ ARCHITECTURE ============ -->
-  <section class="section section-alt" id="architecture">
+  <section class="section" id="architecture">
     <div class="wrap">
       <div class="section-head">
         <span class="kicker">Under the hood</span>
@@ -411,7 +402,6 @@ journalctl --user -u anton -f</code></pre>
         <div class="footer-col">
           <h5>Product</h5>
           <a href="#modes">Two modes</a>
-          <a href="#tickets">Ticket flow</a>
           <a href="#download">Download</a>
           <a href="#install">Install</a>
           <a href="./getting-started.html">Getting started</a>

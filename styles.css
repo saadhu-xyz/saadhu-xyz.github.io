@@ -276,22 +276,6 @@ code {
 .phase-tag { font-family: var(--mono); font-size: .8rem; color: var(--accent-2); margin: -6px 0 14px; }
 .phase-tag code { background: none; border: none; padding: 0; color: var(--accent); }
 
-/* ---------------- TICKET FLOW ---------------- */
-.flow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.flow-step {
-  position: relative; background: var(--panel); border: 1px solid var(--line);
-  border-radius: var(--radius); padding: 22px 22px 22px 22px;
-}
-.flow-step .flow-n {
-  display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 8px;
-  font-family: var(--mono); font-weight: 700; font-size: .9rem; color: var(--accent);
-  background: rgba(74,222,128,.08); border: 1px solid rgba(74,222,128,.25); margin-bottom: 12px;
-}
-.flow-step h4 { margin: 0 0 8px; font-size: 1.05rem; }
-.flow-step p { margin: 0; color: var(--text-dim); font-size: .9rem; }
-.flow-step.flow-done { border-color: rgba(74,222,128,.4); box-shadow: 0 0 0 1px rgba(74,222,128,.15); }
-.flow-step.flow-done .flow-n { color: #05210f; background: var(--accent); border-color: var(--accent); }
-
 /* ---------------- BUNDLE LIST ---------------- */
 .bundle {
   margin-top: 30px; background: var(--panel); border: 1px solid var(--line);
@@ -365,6 +349,53 @@ code {
 .card-more p a { color: var(--accent-2); }
 .card-more .callout { margin: 12px 0; }
 
+/* ---------------- GUIDE LINK ---------------- */
+/* The panel at the end of Download & install: the whole thing is one link to
+   getting-started.html, with the guide's steps drawn as a path ending in a PR. */
+.guide-next {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 36px; align-items: center;
+  margin-top: 30px; padding: 28px 32px; border-radius: var(--radius);
+  background:
+    radial-gradient(500px 220px at 100% 0%, rgba(74,222,128,.10), transparent 70%),
+    linear-gradient(135deg, rgba(56,189,248,.08), rgba(56,189,248,.02));
+  border: 1px solid rgba(56,189,248,.35);
+  transition: border-color .15s, transform .15s, box-shadow .15s;
+}
+.guide-next:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 20px 40px -28px rgba(0,0,0,.9); }
+.guide-next:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 3px; }
+.guide-next-kicker { font-family: var(--mono); font-size: .74rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-2); }
+.guide-next h3 { margin: 6px 0 8px; font-size: 1.5rem; }
+.guide-next p { margin: 0 0 18px; color: var(--text-dim); font-size: .93rem; }
+
+.guide-next-steps {
+  list-style: none; margin: 0; padding: 0; position: relative;
+  display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px;
+}
+/* The path behind the dots: centre of the first to centre of the last. */
+.guide-next-steps::before {
+  content: ""; position: absolute; top: 21px; left: calc(100% / 14); right: calc(100% / 14); height: 2px;
+  background: linear-gradient(90deg, var(--accent-2), var(--accent)); opacity: .45;
+}
+.guide-next-steps li { position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+.gn-dot {
+  width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--panel); border: 1px solid var(--line); color: var(--accent-2);
+}
+.gn-dot svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.gn-label { font-size: .78rem; color: var(--text-dim); line-height: 1.3; }
+.gn-done .gn-dot { background: var(--accent); border-color: var(--accent); color: #04210f; }
+.gn-done .gn-label { color: var(--accent); font-weight: 600; }
+
+@media (max-width: 900px) {
+  .guide-next { grid-template-columns: 1fr; gap: 24px; }
+}
+@media (max-width: 640px) {
+  .guide-next { padding: 22px 20px; }
+  /* Seven across is too tight on a phone: wrap to two rows, without the path. */
+  .guide-next-steps { grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: 16px; }
+  .guide-next-steps::before { display: none; }
+}
+
 /* ---------------- GETTING STARTED ---------------- */
 .guide-list { margin: 0 0 14px; padding-left: 22px; color: var(--text-dim); display: grid; gap: 8px; }
 .guide-list b { color: var(--text); font-weight: 600; }
@@ -405,12 +436,10 @@ code {
   .hero-inner { grid-template-columns: 1fr; gap: 40px; }
   .hero { padding: 56px 0 48px; }
   .phases { grid-template-columns: 1fr; }
-  .flow { grid-template-columns: repeat(2, 1fr); }
   .nav-links { display: none; }
 }
 @media (max-width: 640px) {
   .cards { grid-template-columns: 1fr; }
-  .flow { grid-template-columns: 1fr; }
   .arch-row { grid-template-columns: 1fr; }
   .arch-inline { grid-template-columns: 1fr !important; }
   .bundle-list li { gap: 8px; }
