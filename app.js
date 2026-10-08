@@ -150,3 +150,17 @@ function flash(el, msg) {
 /* ---- footer year ---- */
 const yearEl = document.getElementById("year");
 if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+/* ---- links into a collapsed panel ----
+   The DMG fallback lives in a <details> (#manual-install); a link to it, or to
+   anything inside one, should land on it open rather than on a closed summary. */
+function openLinkedDetails() {
+  const id = decodeURIComponent(location.hash.slice(1));
+  const target = id && document.getElementById(id);
+  const details = target && target.closest("details");
+  if (!details || details.open) return;
+  details.open = true;
+  target.scrollIntoView();
+}
+openLinkedDetails();
+window.addEventListener("hashchange", openLinkedDetails);

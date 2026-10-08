@@ -20,9 +20,8 @@
         <a href="#modes">Two modes</a>
         <a href="#tickets">Ticket flow</a>
         <a href="#download">Download</a>
-        <a href="./getting-started.html">Getting started</a>
-        <a href="#quickstart">Quick start</a>
         <a href="#install">Install</a>
+        <a href="./getting-started.html">Getting started</a>
         <a href="#architecture">Architecture</a>
       </nav>
       <a class="btn btn-ghost nav-cta" href="#download">Get Anton</a>
@@ -154,8 +153,8 @@
         <span class="kicker">Downloads</span>
         <h2>Get Anton</h2>
         <p class="section-sub">
-          The <b>mobile app</b> is the primary UI for both modes. The <b>server</b> ships three
-          Go binaries — each a single executable with a systemd unit.
+          The <b>mobile app</b> is the primary UI for both modes. It connects to a server you run —
+          <a href="#install">install that next</a>.
         </p>
       </div>
 
@@ -187,21 +186,40 @@
         </article>
       </div>
 
-      <!-- SERVER -->
-      <h3 class="group-title"><span class="group-tag">Server</span> Three binaries</h3>
+    </div>
+  </section>
+
+  <!-- ============ INSTALL ============ -->
+  <!-- One section for both platforms. It replaced a macOS "quick start" and a
+       Linux "full setup" that repeated the install line three times between
+       them; what comes after installing lives in getting-started.html. The
+       old #quickstart and #manual-install anchors are kept for existing links. -->
+  <section class="section section-alt" id="install">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Install the server</span>
+        <h2>One line, on a Mac or Linux</h2>
+        <p class="section-sub">
+          The app connects to a server you run, on the machine that holds your code. No building
+          and no root: the script checks the download against its published <code>SHA256</code>
+          before it installs anything.
+        </p>
+      </div>
+
       <div class="cards">
-        <article class="card card-wide" data-platform="macos">
+        <article class="card" data-platform="macos" id="quickstart">
           <div class="card-top">
             <div class="card-icon"></div>
             <div>
               <h4>macOS</h4>
-              <span class="card-meta">Anton.app · menu-bar supervisor · <span data-ver="macos-arm64"></span></span>
+              <span class="card-meta">Anton.app · menu bar · <span data-ver="macos-arm64"></span></span>
             </div>
           </div>
           <p class="card-desc">
-            A menu bar app that bundles and supervises all three services. One line installs it:
-            the script picks the build for your chip, verifies it against the published
-            <code>SHA256</code>, and launches it. No Gatekeeper prompt.
+            Picks the build for your chip, installs <code>Anton.app</code> to
+            <code>/Applications</code> with the Claude Code plugin, and launches it. A
+            <code>● Anton</code> menu bar item then runs all three services, with start/stop,
+            pairing and the admin token a click away.
           </p>
           <div class="code-block is-wrap">
             <button class="copy" data-copy>Copy</button>
@@ -210,90 +228,19 @@
           <p class="card-note">
             It's a plain shell script — <a href="./install-script.html">read it first</a> if you'd rather.
           </p>
-          <div class="btn-row">
-            <a class="btn btn-ghost" href="#manual-install">Or install from a DMG →</a>
-          </div>
-        </article>
-
-        <article class="card card-wide" data-platform="linux">
-          <div class="card-top">
-            <div class="card-icon">🐧</div>
-            <div>
-              <h4>Linux CLI</h4>
-              <span class="card-meta">Linux x86-64 · systemd units · <span data-ver="linux-amd64"></span></span>
-            </div>
-          </div>
-          <p class="card-desc">
-            All three services, the Claude Code plugin and systemd user units. One line installs
-            them: the script verifies the tarball against the published <code>SHA256</code>, asks
-            whether Anton should start at boot, and finishes with your dashboard links and the
-            pairing QR for your phone. No root — everything lands in your home directory.
-          </p>
-          <div class="code-block is-wrap">
+          <div class="code-block">
             <button class="copy" data-copy>Copy</button>
-            <pre><code>curl -fsSL https://saadhu-xyz.github.io/install-linux.sh | bash</code></pre>
+            <pre><code><span class="c-dim"># where things live</span>
+~/Library/Application Support/Anton/   <span class="c-dim"># config.json</span>
+~/Library/Logs/Anton/                  <span class="c-dim"># logs</span>
+~/AntonProjects/                       <span class="c-dim"># projects</span></code></pre>
           </div>
-          <p class="card-note">
-            It's a plain shell script — <a href="./install-linux-script.html">read it first</a> if you'd rather.
-          </p>
-          <div class="btn-row">
-            <a class="btn btn-ghost" data-dl="linux-amd64">Or download the tarball →</a>
-          </div>
-        </article>
-      </div>
 
-      <!-- WHAT'S INSIDE -->
-      <div class="bundle">
-        <div class="bundle-title">What's in the server bundle</div>
-        <ul class="bundle-list">
-          <li><code>anton</code><span class="bundle-role">Interactive Development Server — live planning &amp; build sessions</span><span class="bundle-port">:8765</span></li>
-          <li><code>anton-ticketing</code><span class="bundle-role">Ticketing Service — tickets, autonomous runs, queue, web dashboard</span><span class="bundle-port">:8766</span></li>
-          <li><code>anton-impl-server</code><span class="bundle-role">Implementation worker — claims tickets, ships PRs</span><span class="bundle-port">outbound</span></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ QUICK START (macOS) ============ -->
-  <section class="section section-alt" id="quickstart">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="kicker">Quick start · macOS</span>
-        <h2>Install on a MacBook</h2>
-        <p class="section-sub">
-          No Xcode, no Go toolchain, no building. One line in Terminal, and the menu bar app
-          supervises all three services for you.
-        </p>
-      </div>
-
-      <div class="steps">
-        <div class="step">
-          <div class="step-badge">1</div>
-          <div class="step-body">
-            <h4>Run one line</h4>
-            <p>
-              It detects your chip, downloads the matching DMG, verifies it against the published
-              <code>SHA256</code>, installs Anton to <code>/Applications</code>, adds the Claude Code
-              plugin, and launches it. No prompts, nothing to click through.
-            </p>
-            <div class="code-block is-wrap">
-              <button class="copy" data-copy>Copy</button>
-              <pre><code>curl -fsSL https://saadhu-xyz.github.io/install.sh | bash</code></pre>
-            </div>
-            <p>
-              Prefer to read it first? It's a plain shell script —
-              <a href="./install-script.html">install.sh</a>.
-            </p>
-          </div>
-        </div>
-
-        <div class="step" id="manual-install">
-          <div class="step-badge">2</div>
-          <div class="step-body">
-            <h4>Or install from the DMG by hand</h4>
+          <details class="card-more" id="manual-install">
+            <summary>Install from a DMG instead</summary>
             <p>
               There is no universal binary, so check your chip and take the matching DMG. Open it,
-              then double-click <code>Install Anton.command</code> inside.
+              then run <code>Install Anton.command</code> inside.
             </p>
             <div class="code-block">
               <button class="copy" data-copy>Copy</button>
@@ -309,159 +256,99 @@
               <span class="callout-mark">!</span>
               <div>
                 <p>
-                  <b>That double-click will be blocked</b> —
+                  <b>Double-clicking it will be blocked</b> —
                   <i>"Apple could not verify 'Install Anton.command' is free of malware"</i>.
                   Anton is an <b>unsigned personal build</b>, and everything inside a
                   browser-downloaded DMG inherits its <b>quarantine</b> flag. The installer is a
-                  shell script, which carries no signature for Gatekeeper to check — so no amount
-                  of signing or notarizing would clear it.
+                  shell script with no signature to check, so no signing or notarizing would clear it.
                 </p>
                 <p>
-                  Older guides say to <b>right-click → Open</b>. macOS 15 removed that bypass, so
-                  on macOS 15 and later it is no longer offered. Two ways through remain:
-                  <b>System Settings → Privacy &amp; Security</b>, scroll to the bottom,
-                  <b>Open Anyway</b> — or run it from Terminal, below. Gatekeeper's check lives in
-                  double-click and <code>open</code>, never in <code>bash</code>.
+                  macOS 15 removed the old <b>right-click → Open</b> bypass. Use
+                  <b>System Settings → Privacy &amp; Security → Open Anyway</b>, or run it from
+                  Terminal — Gatekeeper checks double-clicks and <code>open</code>, never
+                  <code>bash</code>:
                 </p>
               </div>
             </div>
             <div class="code-block">
               <button class="copy" data-copy>Copy</button>
-              <pre><code><span class="c-dim"># run the bundled installer without tripping Gatekeeper</span>
-bash "/Volumes/Anton (arm64)/Install Anton.command"
+              <pre><code>bash "/Volumes/Anton (arm64)/Install Anton.command"
 
 <span class="c-dim"># or, if you dragged Anton.app across yourself</span>
 xattr -cr /Applications/Anton.app
 codesign --force --deep --sign - /Applications/Anton.app
 open /Applications/Anton.app</code></pre>
             </div>
-          </div>
-        </div>
+          </details>
+        </article>
 
-        <div class="step">
-          <div class="step-badge">3</div>
-          <div class="step-body">
-            <h4>Check the menu bar</h4>
+        <article class="card" data-platform="linux">
+          <div class="card-top">
+            <div class="card-icon">🐧</div>
+            <div>
+              <h4>Linux</h4>
+              <span class="card-meta">x86-64 · systemd user units · <span data-ver="linux-amd64"></span></span>
+            </div>
+          </div>
+          <p class="card-desc">
+            Installs the three services and the Claude Code plugin under your home directory, with a
+            systemd <b>user</b> unit for each. It asks once whether Anton should start at boot, then
+            finishes with your dashboard links, admin token and pairing QR.
+          </p>
+          <div class="code-block is-wrap">
+            <button class="copy" data-copy>Copy</button>
+            <pre><code>curl -fsSL https://saadhu-xyz.github.io/install-linux.sh | bash</code></pre>
+          </div>
+          <p class="card-note">
+            It's a plain shell script — <a href="./install-linux-script.html">read it first</a> if you'd rather.
+          </p>
+          <div class="code-block">
+            <button class="copy" data-copy>Copy</button>
+            <pre><code><span class="c-dim"># where things live</span>
+~/.local/share/anton/bin/   <span class="c-dim"># the binaries + plugin</span>
+~/.local/bin/anton          <span class="c-dim"># on your PATH</span>
+~/.anton/                   <span class="c-dim"># config · data · secrets</span>
+~/AntonProjects/            <span class="c-dim"># projects</span></code></pre>
+          </div>
+
+          <details class="card-more">
+            <summary>Start at boot, upgrades and the tarball</summary>
             <p>
-              A <code>● Anton</code> indicator appears in your top bar with all three services and
-              start/stop controls. Anton shells out to local CLIs, so <code>claude</code> and
-              <code>git</code> must be on your <code>PATH</code> — Homebrew and asdf paths are
-              picked up automatically.
+              Saying yes to start at boot also runs <code>loginctl enable-linger</code> — without it,
+              user services stop when you log out, which on a headless box is exactly when you need
+              them. Re-run the same line to upgrade; <code>~/.anton</code> is left alone.
             </p>
             <div class="code-block">
               <button class="copy" data-copy>Copy</button>
-              <pre><code><span class="c-dim"># where things live</span>
-~/Library/Application Support/Anton/config.json   <span class="c-dim"># settings</span>
-~/Library/Logs/Anton/                             <span class="c-dim"># logs</span>
-~/AntonProjects/                                  <span class="c-dim"># project tree</span></code></pre>
+              <pre><code>systemctl --user status anton anton-ticketing anton-impl-server
+journalctl --user -u anton -f</code></pre>
             </div>
-          </div>
-        </div>
+            <div class="btn-row">
+              <a class="btn btn-ghost" data-dl="linux-amd64">Download the tarball →</a>
+            </div>
+          </details>
+        </article>
+      </div>
+
+      <!-- WHAT'S INSIDE -->
+      <div class="bundle">
+        <div class="bundle-title">What's in the server bundle</div>
+        <ul class="bundle-list">
+          <li><code>anton</code><span class="bundle-role">Interactive Development Server — live planning &amp; build sessions</span><span class="bundle-port">:8765</span></li>
+          <li><code>anton-ticketing</code><span class="bundle-role">Ticketing Service — tickets, autonomous runs, queue, web dashboard</span><span class="bundle-port">:8766</span></li>
+          <li><code>anton-impl-server</code><span class="bundle-role">Implementation worker — claims tickets, ships PRs</span><span class="bundle-port">outbound</span></li>
+        </ul>
       </div>
 
       <p class="dl-note">
-        Next: <a href="./getting-started.html#macos">set up Tailscale, your project folder, pairing and GitHub</a>.
-        Running Linux instead? The full server walkthrough is <a href="#install">just below</a>.
+        Installed? Next, <a href="./getting-started.html">getting started</a>: connect over
+        Tailscale, point Anton at your projects, pair your phone, and give the worker GitHub access.
       </p>
     </div>
   </section>
 
-  <!-- ============ INSTALL ============ -->
-  <section class="section" id="install">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="kicker">Full setup</span>
-        <h2>Install in a few minutes</h2>
-        <p class="section-sub">The mobile app reaches your services over WSS/HTTPS on your Tailscale network.</p>
-      </div>
-
-      <div class="steps">
-        <div class="step">
-          <div class="step-badge">1</div>
-          <div class="step-body">
-            <h4>Run the services</h4>
-            <p>
-              On macOS, install <code>Anton.app</code> and it supervises all three — see the
-              <a href="#quickstart">macOS quick start</a>. On Linux, one line installs the CLI:
-              the binaries, the Claude Code plugin and a systemd <b>user</b> unit per service.
-            </p>
-            <div class="code-block is-wrap">
-              <button class="copy" data-copy>Copy</button>
-              <pre><code>curl -fsSL https://saadhu-xyz.github.io/install-linux.sh | bash</code></pre>
-            </div>
-            <p>
-              It asks once whether Anton should start at login and boot, and enables
-              <code>loginctl enable-linger</code> if you say yes — without which user services
-              stop at logout, which on a headless box is exactly when you need them. Re-run the
-              same line to upgrade; <code>~/.anton</code> is left alone.
-            </p>
-            <div class="code-block">
-              <button class="copy" data-copy>Copy</button>
-              <pre><code><span class="c-dim"># installed layout</span>
-~/.local/share/anton/bin/   <span class="c-dim"># the four binaries + bundled plugin</span>
-~/.local/bin/anton          <span class="c-dim"># on your PATH</span>
-~/.anton/                   <span class="c-dim"># config · data · secrets</span>
-~/AntonProjects/            <span class="c-dim"># project tree (change it in the dashboard, or --work-dir)</span>
-
-systemctl --user status anton anton-ticketing anton-impl-server</code></pre>
-            </div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step-badge">2</div>
-          <div class="step-body">
-            <h4>Check status &amp; pairing</h4>
-            <p>
-              The installer ends with all of this — your two dashboards, the admin token and the
-              pairing QR. Any of it can be re-displayed later:
-            </p>
-            <div class="code-block">
-              <button class="copy" data-copy>Copy</button>
-              <pre><code>anton --print-pairing-qr              <span class="c-dim"># QR + the URLs the app will try</span>
-anton-ticketing --print-admin-token   <span class="c-dim"># admin token</span>
-journalctl --user -u anton -f         <span class="c-dim"># logs</span>
-
-<span class="c-dim"># the two dashboards</span>
-http://127.0.0.1:8765/dashboard/      <span class="c-dim"># sessions</span>
-http://127.0.0.1:8766/dashboard/      <span class="c-dim"># tickets &amp; workers</span></code></pre>
-            </div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step-badge">3</div>
-          <div class="step-body">
-            <h4>Approve your worker</h4>
-            <p>
-              The Implementation Server self-registers with the ticketing service and waits for
-              admin approval. Each worker has its own Ed25519 keypair and signs its requests —
-              no shared secrets. Approve it once and it starts claiming queued tickets.
-            </p>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step-badge">4</div>
-          <div class="step-body">
-            <h4>Pair the app</h4>
-            <p>
-              Install the mobile app and scan the pairing QR from <code>anton-status</code> (or
-              enter your server URL over Tailscale). Create a project and start a live session,
-              or file your first ticket.
-            </p>
-            <p>
-              First time? The <a href="./getting-started.html#linux">getting started guide</a> walks
-              through Tailscale, your project folder, the dashboards and GitHub access.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ============ ARCHITECTURE ============ -->
-  <section class="section section-alt" id="architecture">
+  <section class="section" id="architecture">
     <div class="wrap">
       <div class="section-head">
         <span class="kicker">Under the hood</span>
@@ -554,9 +441,8 @@ http://127.0.0.1:8766/dashboard/      <span class="c-dim"># tickets &amp; worker
           <a href="#modes">Two modes</a>
           <a href="#tickets">Ticket flow</a>
           <a href="#download">Download</a>
-          <a href="./getting-started.html">Getting started</a>
-          <a href="#quickstart">Quick start · macOS</a>
           <a href="#install">Install</a>
+          <a href="./getting-started.html">Getting started</a>
         </div>
         <div class="footer-col">
           <h5>Platforms</h5>

@@ -342,6 +342,30 @@ code {
 .footer-col a:hover { color: var(--text); }
 .footer-bottom { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-top: 24px; color: var(--text-mut); font-size: .85rem; }
 
+/* ---------------- INSTALL ---------------- */
+.section-sub a { color: var(--accent-2); text-decoration: underline; text-underline-offset: 3px; }
+/* The install cards hold more than a download card, so they don't stretch the
+   description to push everything else to the bottom. */
+#install .card-desc { flex: 0 0 auto; }
+#install .card .code-block + .code-block { margin-top: 12px; }
+/* Grid items won't shrink below their content by default, so a long "where
+   things live" line widened the card — and the page — past a phone's width.
+   With min-width 0 the card fits and the pre scrolls inside it instead. */
+.card { min-width: 0; }
+#install .card:hover { transform: none; }
+.card-more { margin-top: 16px; border-top: 1px solid var(--line-soft); padding-top: 12px; }
+.card-more summary {
+  cursor: pointer; color: var(--accent-2); font-size: .9rem; font-weight: 600;
+  list-style: none; display: flex; align-items: center; gap: 8px;
+}
+.card-more summary::-webkit-details-marker { display: none; }
+.card-more summary::before { content: "▸"; font-size: .8rem; transition: transform .15s; }
+.card-more[open] summary::before { transform: rotate(90deg); }
+.card-more[open] > :not(summary) { margin-top: 12px; }
+.card-more p { color: var(--text-dim); font-size: .88rem; margin: 12px 0; }
+.card-more p a { color: var(--accent-2); }
+.card-more .callout { margin: 12px 0; }
+
 /* ---------------- GETTING STARTED ---------------- */
 .guide-list { margin: 0 0 14px; padding-left: 22px; color: var(--text-dim); display: grid; gap: 8px; }
 .guide-list b { color: var(--text); font-weight: 600; }
