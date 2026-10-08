@@ -342,6 +342,41 @@ code {
 .footer-col a:hover { color: var(--text); }
 .footer-bottom { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-top: 24px; color: var(--text-mut); font-size: .85rem; }
 
+/* ---------------- GETTING STARTED ---------------- */
+.guide-list { margin: 0 0 14px; padding-left: 22px; color: var(--text-dim); display: grid; gap: 8px; }
+.guide-list b { color: var(--text); font-weight: 600; }
+.step-body .bundle { margin: 0 0 18px; padding: 18px 22px; }
+.step-body .bundle-list code { min-width: 96px; }
+.guide-intro { padding-bottom: 40px; }
+.guide-body { padding-top: 56px; }
+.guide-intro .callout { margin-bottom: 0; }
+
+.tabs {
+  display: flex; gap: 6px; width: fit-content; max-width: 100%; margin: 36px auto 0;
+  padding: 5px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+}
+.tab {
+  font: inherit; font-size: .95rem; font-weight: 600; color: var(--text-dim); cursor: pointer;
+  background: none; border: 0; border-radius: 8px; padding: 9px 26px;
+  /* No transition: guide.js may switch tabs on load, which would animate. */
+}
+.tab:hover { color: var(--text); }
+.tab[aria-selected="true"] { color: #04210f; background: var(--accent); }
+.tab:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; }
+/* Without JS both panels show; space them apart. */
+.tab-panel + .tab-panel { margin-top: 40px; }
+
+.guide-fig { margin: 0 0 18px; }
+/* Grid items default to min-width: auto; a long code line would widen the step. */
+.guide-body .step-body { min-width: 0; }
+.guide-fig img {
+  display: block; width: 100%; height: auto;
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+}
+.guide-fig > a { display: block; cursor: zoom-in; }
+.guide-fig figcaption { margin-top: 8px; font-size: .85rem; color: var(--text-mut); }
+.guide-fig figcaption b { color: var(--text-dim); font-weight: 600; }
+
 /* ---------------- RESPONSIVE ---------------- */
 @media (max-width: 900px) {
   .hero-inner { grid-template-columns: 1fr; gap: 40px; }

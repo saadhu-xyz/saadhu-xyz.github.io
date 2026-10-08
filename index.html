@@ -20,6 +20,7 @@
         <a href="#modes">Two modes</a>
         <a href="#tickets">Ticket flow</a>
         <a href="#download">Download</a>
+        <a href="./getting-started.html">Getting started</a>
         <a href="#quickstart">Quick start</a>
         <a href="#install">Install</a>
         <a href="#architecture">Architecture</a>
@@ -46,7 +47,7 @@
           <a class="btn btn-primary" href="#download">
             <span class="os-label">Download for your platform</span>
           </a>
-          <a class="btn btn-ghost" href="#modes">See the two modes →</a>
+          <a class="btn btn-ghost" href="./getting-started.html">Getting started →</a>
         </div>
         <div class="hero-meta">
           <span><b>3</b> Go binaries</span>
@@ -359,6 +360,7 @@ open /Applications/Anton.app</code></pre>
       </div>
 
       <p class="dl-note">
+        Next: <a href="./getting-started.html#macos">set up Tailscale, your project folder, pairing and GitHub</a>.
         Running Linux instead? The full server walkthrough is <a href="#install">just below</a>.
       </p>
     </div>
@@ -399,7 +401,7 @@ open /Applications/Anton.app</code></pre>
 ~/.local/share/anton/bin/   <span class="c-dim"># the four binaries + bundled plugin</span>
 ~/.local/bin/anton          <span class="c-dim"># on your PATH</span>
 ~/.anton/                   <span class="c-dim"># config · data · secrets</span>
-~/AntonProjects/            <span class="c-dim"># project tree (--work-dir to change)</span>
+~/AntonProjects/            <span class="c-dim"># project tree (change it in the dashboard, or --work-dir)</span>
 
 systemctl --user status anton anton-ticketing anton-impl-server</code></pre>
             </div>
@@ -447,6 +449,10 @@ http://127.0.0.1:8766/dashboard/      <span class="c-dim"># tickets &amp; worker
               Install the mobile app and scan the pairing QR from <code>anton-status</code> (or
               enter your server URL over Tailscale). Create a project and start a live session,
               or file your first ticket.
+            </p>
+            <p>
+              First time? The <a href="./getting-started.html#linux">getting started guide</a> walks
+              through Tailscale, your project folder, the dashboards and GitHub access.
             </p>
           </div>
         </div>
@@ -548,6 +554,7 @@ http://127.0.0.1:8766/dashboard/      <span class="c-dim"># tickets &amp; worker
           <a href="#modes">Two modes</a>
           <a href="#tickets">Ticket flow</a>
           <a href="#download">Download</a>
+          <a href="./getting-started.html">Getting started</a>
           <a href="#quickstart">Quick start · macOS</a>
           <a href="#install">Install</a>
         </div>
