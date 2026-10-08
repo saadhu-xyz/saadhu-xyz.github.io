@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Getting started — Anton</title>
+  <meta name="description" content="Getting started with Anton on macOS or Linux: install the server, connect over Tailscale, point it at your dev folder, pair your phone, open the dashboards, and give the worker access to GitHub." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>" />
+</head>
+<body>
+  <!-- ============ NAV ============ -->
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="./">
+        <span class="brand-mark">◆</span>
+        <span class="brand-name">Anton</span>
+      </a>
+      <nav class="nav-links">
+        <a href="./#modes">Two modes</a>
+        <a href="./#download">Download</a>
+        <a href="#macos">Getting started · macOS</a>
+        <a href="#linux">Getting started · Linux</a>
+      </nav>
+      <a class="btn btn-ghost nav-cta" href="./#download">Get Anton</a>
+    </div>
+  </header>
+
+  <!-- ============ INTRO ============ -->
+  <section class="section guide-intro" id="top">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Getting started</span>
+        <h2>From install to first PR</h2>
+        <p class="section-sub">
+          Everything to do once, in order: install the server, make it reachable, point it at
+          your code, pair your phone, and give the worker access to GitHub.
+        </p>
+      </div>
+
+      <div class="steps">
+        <div class="callout">
+          <span class="callout-mark">!</span>
+          <div>
+            <p>
+              <b>The app does nothing on its own.</b> The mobile app is a remote control for the
+              Anton server — every session, file, ticket and PR lives on a computer you run. Install
+              the server first; the app has nothing to connect to until you do.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="Server platform">
+        <button class="tab" role="tab" id="tab-macos" aria-controls="macos" aria-selected="true">macOS</button>
+        <button class="tab" role="tab" id="tab-linux" aria-controls="linux" aria-selected="false">Linux</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt guide-body">
+    <div class="wrap">
+
+      <!-- ============ macOS ============ -->
+      <div class="tab-panel" role="tabpanel" id="macos" aria-labelledby="tab-macos">
+        <div class="steps">
+
+          <div class="step" id="macos-install">
+            <div class="step-badge">1</div>
+            <div class="step-body">
+              <h4>Install the server</h4>
+              <p>
+                On the Mac that holds your code. One line picks the build for your chip, verifies
+                it, installs <code>Anton.app</code> and launches it:
+              </p>
+              <div class="code-block is-wrap">
+                <button class="copy" data-copy>Copy</button>
+                <pre><code>curl -fsSL https://saadhu-xyz.github.io/install.sh | bash</code></pre>
+              </div>
+              <p>
+                Anton now lives in your menu bar, and runs all three services for you. Everything
+                below starts from that menu. Then install the mobile app from the
+                <a href="./#download">downloads</a>.
+              </p>
+              <figure class="guide-fig">
+                <a href="img/guide/mac-menubar.svg" target="_blank" rel="noopener"><img src="img/guide/mac-menubar.svg" width="760" height="453" loading="lazy"
+                     alt="The Anton menu bar item, open, listing all three services running" /></a>
+                <figcaption>The <b>Anton</b> menu — a green dot means the service is running.</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <div class="step" id="macos-tools">
+            <div class="step-badge">2</div>
+            <div class="step-body">
+              <h4>Install the recommended tools</h4>
+              <p>
+                Anton runs your local CLIs rather than calling any AI provider directly.
+                <b>Recommended Tools</b> in the menu ticks what's installed; click anything missing
+                to open its download page, then <b>Re-check</b>. Claude Code is the one you can't
+                skip — the menu warns you until it's found.
+              </p>
+              <figure class="guide-fig">
+                <a href="img/guide/mac-tools.svg" target="_blank" rel="noopener"><img src="img/guide/mac-tools.svg" width="760" height="453" loading="lazy"
+                     alt="The Recommended Tools submenu, with installed tools ticked" /></a>
+                <figcaption>Ticked tools are installed; open circles link to their installers.</figcaption>
+              </figure>
+              <p>
+                Once <a href="https://cli.github.com" rel="noopener">GitHub CLI</a> is installed
+                (<code>brew install gh</code>), sign it in once so Claude can open PRs for you:
+              </p>
+              <div class="code-block">
+                <button class="copy" data-copy>Copy</button>
+                <pre><code>gh auth login</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="step" id="macos-tailscale">
+            <div class="step-badge">3</div>
+            <div class="step-body">
+              <h4>Use Tailscale to reach it from anywhere</h4>
+              <p>
+                <b>Highly recommended.</b> Without it, your phone can only reach your Mac while both
+                are on the same Wi-Fi. Install <a href="https://tailscale.com/download" rel="noopener">Tailscale</a>
+                on the Mac and on your phone, and sign both in to the same account — Anton then works
+                from anywhere, with no port forwarding and nothing exposed to the internet.
+              </p>
+              <p>
+                Do this <b>before pairing</b>: the pairing QR includes your Mac's Tailscale address,
+                so the app keeps working once you leave home.
+              </p>
+            </div>
+          </div>
+
+          <div class="step" id="macos-dashboards">
+            <div class="step-badge">4</div>
+            <div class="step-body">
+              <h4>Open the dashboards and add the admin token</h4>
+              <p>
+                Each service has a web dashboard. Open one from its submenu —
+                <b>Interactive Development Server → Open dashboard in browser</b> for settings and
+                devices, <b>Ticketing Service → Open dashboard in browser</b> for tickets and workers.
+              </p>
+              <figure class="guide-fig">
+                <a href="img/guide/mac-dashboard.svg" target="_blank" rel="noopener"><img src="img/guide/mac-dashboard.svg" width="760" height="453" loading="lazy"
+                     alt="A service's submenu with Open dashboard in browser selected" /></a>
+                <figcaption>
+                  <code>http://127.0.0.1:8765/dashboard/</code> and
+                  <code>http://127.0.0.1:8766/dashboard/</code>, if you'd rather bookmark them.
+                </figcaption>
+              </figure>
+              <p>
+                Both need the <b>admin token</b> to change settings and manage workers. Copy it from
+                <b>Admin Token → Copy admin token</b>:
+              </p>
+              <figure class="guide-fig">
+                <a href="img/guide/mac-admin-token.svg" target="_blank" rel="noopener"><img src="img/guide/mac-admin-token.svg" width="760" height="453" loading="lazy"
+                     alt="The Admin Token submenu with Copy admin token selected" /></a>
+              </figure>
+              <p>
+                In the Tickets dashboard, go to <b>Settings</b>, paste it under <b>Admin token</b>
+                and click <b>Save token</b>. The settings dashboard asks for the same token with an
+                <b>Enter token</b> button. Each browser remembers it, so it's once per computer —
+                treat it like a password.
+              </p>
+              <figure class="guide-fig">
+                <a href="img/guide/mac-dashboard-token.svg" target="_blank" rel="noopener"><img src="img/guide/mac-dashboard-token.svg" width="760" height="330" loading="lazy"
+                     alt="The Tickets dashboard Settings page with the admin token field and Save token button" /></a>
+              </figure>
+            </div>
+          </div>
+
+          <div class="step" id="macos-projects">
+            <div class="step-badge">5</div>
+            <div class="step-body">
+              <h4>Point Anton at your dev folder</h4>
+              <p>
+                Anton works inside one project folder — every subfolder is a project in the app. It
+                starts at <code>~/AntonProjects</code>; point it at the folder where you already keep
+                your repos so they show up straight away.
+              </p>
+              <p>
+                In the settings dashboard (<code>:8765</code>), under <b>Service Configuration</b>,
+                set <b>Work dir</b> to the full path and click <b>Save changes</b>:
+              </p>
+              <figure class="guide-fig">
+                <a href="img/guide/mac-workdir.svg" target="_blank" rel="noopener"><img src="img/guide/mac-workdir.svg" width="760" height="380" loading="lazy"
+                     alt="Service Configuration with Work dir set to /Users/you/projects" /></a>
+              </figure>
+              <p>Then open the menu and click <b>Apply &amp; restart all services</b>:</p>
+              <figure class="guide-fig">
+                <a href="img/guide/mac-apply.svg" target="_blank" rel="noopener"><img src="img/guide/mac-apply.svg" width="760" height="510" loading="lazy"
+                     alt="The Anton menu showing Configuration changed on disk, with Apply and restart all services" /></a>
+              </figure>
+            </div>
+          </div>
+
+          <div class="step" id="macos-pair">
+            <div class="step-badge">6</div>
+            <div class="step-body">
+              <h4>Pair your phone</h4>
+              <p>
+                Click <b>Pair Mobile App…</b> in the menu and scan the QR from the app. Your phone
+                then shows a six-character code while it waits to be approved.
+              </p>
+              <figure class="guide-fig">
+                <a href="img/guide/mac-pairing.svg" target="_blank" rel="noopener"><img src="img/guide/mac-pairing.svg" width="760" height="470" loading="lazy"
+                     alt="The Pair Mobile App window's QR code, and the phone showing its six-character code" /></a>
+              </figure>
+              <p>
+                The waiting phone appears at the top of the Anton menu (and as a notification).
+                Click it and approve — <b>only if the code matches the one on your phone</b>.
+              </p>
+              <figure class="guide-fig">
+                <a href="img/guide/mac-approve.svg" target="_blank" rel="noopener"><img src="img/guide/mac-approve.svg" width="760" height="510" loading="lazy"
+                     alt="The Anton menu listing a phone waiting for approval, with its code" /></a>
+              </figure>
+            </div>
+          </div>
+
+          <div class="step" id="macos-github">
+            <div class="step-badge">7</div>
+            <div class="step-body">
+              <h4>Approve the worker and give it GitHub access</h4>
+              <p>
+                The worker clones, branches and pushes with <b>its own SSH key</b>, not yours. Until
+                GitHub knows that key, every ticket fails at the clone.
+              </p>
+              <figure class="guide-fig">
+                <a href="img/guide/mac-workers.svg" target="_blank" rel="noopener"><img src="img/guide/mac-workers.svg" width="760" height="330" loading="lazy"
+                     alt="The Workers panel with Approve and Copy SSH Key buttons on a pending worker" /></a>
+              </figure>
+              <ol class="guide-list">
+                <li>In the Tickets dashboard, open <b>Workers</b> and <b>Approve</b> the pending worker.</li>
+                <li>Click <b>Copy SSH Key</b> on that worker.</li>
+                <li>
+                  On GitHub, add it under <b>Settings → SSH and GPG keys → New SSH key</b> for access
+                  to all your repos — or per repo under <b>Settings → Deploy keys</b>, with
+                  <b>Allow write access</b> ticked.
+                </li>
+                <li>In the app, give each project an SSH remote, like <code>git@github.com:you/repo.git</code>.</li>
+              </ol>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ============ LINUX ============ -->
+      <div class="tab-panel" role="tabpanel" id="linux" aria-labelledby="tab-linux">
+        <div class="steps">
+
+          <div class="step" id="linux-install">
+            <div class="step-badge">1</div>
+            <div class="step-body">
+              <h4>Install the server</h4>
+              <p>
+                On the machine that holds your code — ideally one you leave running. One line
+                installs all three services as systemd <b>user</b> units; no root needed:
+              </p>
+              <div class="code-block is-wrap">
+                <button class="copy" data-copy>Copy</button>
+                <pre><code>curl -fsSL https://saadhu-xyz.github.io/install-linux.sh | bash</code></pre>
+              </div>
+              <p>
+                Say yes when it asks about starting at boot, so Anton keeps running after you log
+                out. It finishes with your dashboard links, admin token and pairing QR — the
+                <a href="./#install">install walkthrough</a> has the details. Then install the mobile
+                app from the <a href="./#download">downloads</a>.
+              </p>
+            </div>
+          </div>
+
+          <div class="step" id="linux-tools">
+            <div class="step-badge">2</div>
+            <div class="step-body">
+              <h4>Install the recommended tools</h4>
+              <p>
+                Anton runs your local CLIs rather than calling any AI provider directly, so these
+                need to be on the server's <code>PATH</code>. The installer checks for them and
+                offers to install Claude Code, Tailscale and <code>gh</code>; pass
+                <code>--install-deps</code> to install whatever's missing without asking.
+              </p>
+              <div class="bundle">
+                <ul class="bundle-list">
+                  <li><code>claude</code><span class="bundle-role">Claude Code — every session runs through it</span><span class="bundle-port">required</span></li>
+                  <li><code>git</code><span class="bundle-role">Projects, branches and worktrees</span><span class="bundle-port">required</span></li>
+                  <li><code>tailscale</code><span class="bundle-role">Reach Anton from your phone anywhere</span><span class="bundle-port">highly rec.</span></li>
+                  <li><code>gh</code><span class="bundle-role">GitHub CLI — PRs and repo access for workers</span><span class="bundle-port">recommended</span></li>
+                  <li><code>tmux</code><span class="bundle-role">Attach to sessions from a terminal</span><span class="bundle-port">nice to have</span></li>
+                  <li><code>opencode</code><span class="bundle-role">Alternative coding agent</span><span class="bundle-port">if needed</span></li>
+                </ul>
+              </div>
+              <p>Sign <a href="https://cli.github.com" rel="noopener">gh</a> in once so Claude can open PRs for you:</p>
+              <div class="code-block">
+                <button class="copy" data-copy>Copy</button>
+                <pre><code>gh auth login</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="step" id="linux-tailscale">
+            <div class="step-badge">3</div>
+            <div class="step-body">
+              <h4>Use Tailscale to reach it from anywhere</h4>
+              <p>
+                <b>Highly recommended.</b> Without it, your phone can only reach the server while both
+                are on the same network. With <a href="https://tailscale.com/download" rel="noopener">Tailscale</a>
+                on the server and the phone, signed in to the same account, Anton works from anywhere —
+                no port forwarding, nothing exposed to the internet.
+              </p>
+              <div class="code-block">
+                <button class="copy" data-copy>Copy</button>
+                <pre><code>curl -fsSL https://tailscale.com/install.sh | sh
+sudo tailscale up</code></pre>
+              </div>
+              <p>
+                Do this <b>before pairing</b>: the pairing QR includes the server's Tailscale address,
+                so the app keeps working once you leave home.
+              </p>
+            </div>
+          </div>
+
+          <div class="step" id="linux-dashboards">
+            <div class="step-badge">4</div>
+            <div class="step-body">
+              <h4>Open the dashboards and add the admin token</h4>
+              <p>Each service has a web dashboard. In a browser on the server:</p>
+              <div class="code-block">
+                <button class="copy" data-copy>Copy</button>
+                <pre><code>http://127.0.0.1:8765/dashboard/   <span class="c-dim"># settings &amp; devices</span>
+http://127.0.0.1:8766/dashboard/   <span class="c-dim"># tickets &amp; workers</span></code></pre>
+              </div>
+              <p>
+                On a headless box, open the Tickets dashboard from another computer over Tailscale
+                at <code>https://&lt;tailscale-ip&gt;:8766/dashboard/</code> — the certificate is
+                self-signed, so the browser warns once. The settings dashboard only answers on the
+                server itself.
+              </p>
+              <p>
+                Managing workers needs the <b>admin token</b>. The installer printed it; print it
+                again with:
+              </p>
+              <div class="code-block">
+                <button class="copy" data-copy>Copy</button>
+                <pre><code>anton-ticketing --print-admin-token</code></pre>
+              </div>
+              <p>
+                In the Tickets dashboard, go to <b>Settings</b>, paste it under <b>Admin token</b> and
+                click <b>Save token</b>. Each browser remembers it, so it's once per computer — treat
+                it like a password.
+              </p>
+            </div>
+          </div>
+
+          <div class="step" id="linux-projects">
+            <div class="step-badge">5</div>
+            <div class="step-body">
+              <h4>Point Anton at your dev folder</h4>
+              <p>
+                Anton works inside one project folder — every subfolder is a project in the app. It
+                starts at <code>~/AntonProjects</code>; point it at the folder where you already keep
+                your repos so they show up straight away.
+              </p>
+              <p>
+                In the settings dashboard (<code>:8765</code>), under <b>Service Configuration</b>,
+                set <b>Work dir</b> to the full path and click <b>Save changes</b>. Then click
+                <b>Apply &amp; restart all services</b> in the banner that appears — the page
+                reloads once they're back.
+              </p>
+              <p>
+                The same section holds the ports and the <code>claude</code>, <code>opencode</code>
+                and <code>git</code> commands. It saves them to
+                <code>~/.anton/config/services.env</code>, which the services read at start and
+                upgrades keep. Prefer the terminal? Re-running the installer with
+                <code>--work-dir</code> does the same:
+              </p>
+              <div class="code-block is-wrap">
+                <button class="copy" data-copy>Copy</button>
+                <pre><code>curl -fsSL https://saadhu-xyz.github.io/install-linux.sh | bash -s -- --work-dir ~/projects</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="step" id="linux-pair">
+            <div class="step-badge">6</div>
+            <div class="step-body">
+              <h4>Pair your phone</h4>
+              <p>
+                Show the pairing QR and scan it from the app. Your phone then shows a six-character
+                code while it waits — approve that code on the server, <b>only if it matches</b>.
+              </p>
+              <div class="code-block">
+                <button class="copy" data-copy>Copy</button>
+                <pre><code>anton --print-pairing-qr         <span class="c-dim"># show the QR</span>
+anton --approve-device &lt;code&gt;    <span class="c-dim"># approve the code on the phone</span>
+anton --list-devices             <span class="c-dim"># see who's paired</span></code></pre>
+              </div>
+              <p>
+                You can also approve it under <b>Devices</b> in the settings dashboard, or from a
+                phone that's already approved. Revoke one any time with
+                <code>anton --revoke-device</code>.
+              </p>
+            </div>
+          </div>
+
+          <div class="step" id="linux-github">
+            <div class="step-badge">7</div>
+            <div class="step-body">
+              <h4>Approve the worker and give it GitHub access</h4>
+              <p>
+                The worker clones, branches and pushes with <b>its own SSH key</b>, not yours. Until
+                GitHub knows that key, every ticket fails at the clone.
+              </p>
+              <ol class="guide-list">
+                <li>In the Tickets dashboard, open <b>Workers</b> and <b>Approve</b> the pending worker.</li>
+                <li>Click <b>Copy SSH Key</b> on that worker.</li>
+                <li>
+                  On GitHub, add it under <b>Settings → SSH and GPG keys → New SSH key</b> for access
+                  to all your repos — or per repo under <b>Settings → Deploy keys</b>, with
+                  <b>Allow write access</b> ticked.
+                </li>
+                <li>In the app, give each project an SSH remote, like <code>git@github.com:you/repo.git</code>.</li>
+              </ol>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <p class="dl-note">
+        That's it — create a project and start a live session, or file your first ticket.
+        <a href="./">Back to Anton →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <span class="brand-mark">◆</span>
+        <span class="brand-name">Anton</span>
+        <p>A personal developer-productivity platform, driven from your phone.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h5>Product</h5>
+          <a href="./#modes">Two modes</a>
+          <a href="./#tickets">Ticket flow</a>
+          <a href="./#download">Download</a>
+          <a href="./getting-started.html">Getting started</a>
+          <a href="./#install">Install</a>
+        </div>
+        <div class="footer-col">
+          <h5>Platforms</h5>
+          <a href="./#download">Android · iOS</a>
+          <a href="./#download">macOS · Linux</a>
+        </div>
+      </div>
+    </div>
+    <div class="wrap footer-bottom">
+      <span>Self-hosted. Your keys, your machine, your data.</span>
+      <span>© <span id="year"></span> Anton</span>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script src="guide.js"></script>
+</body>
+</html>

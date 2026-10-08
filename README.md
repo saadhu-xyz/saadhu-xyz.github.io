@@ -21,6 +21,8 @@ No build step, no dependencies:
 | File | What |
 |---|---|
 | `index.html` | the landing page |
+| `getting-started.html`, `guide.js` | the onboarding guide, in macOS and Linux tabs (`#macos`, `#linux`) |
+| `img/guide/` | the macOS tab's illustrations — drawn mockups, to be replaced by screenshots |
 | `styles.css`, `app.js` | its styles and download wiring |
 | `releases.json` | the release manifest, refreshed by `packaging/release.sh` |
 | `install.sh` | the macOS installer |
@@ -110,6 +112,19 @@ script to show with `<code id="src" data-src="./install-linux.sh">`.
 Highlighting is a ~10-line tokenizer rather than a CDN library, deliberately: a page
 that exists to be audited should not itself load third-party script. The file's text
 is HTML-escaped before any markup is added to it.
+
+## The getting-started guide (`getting-started.html`)
+
+One page, two tabs: macOS and Linux. The open tab is the URL hash (`#macos`,
+`#linux`), so links can send someone to their platform; a hash naming a step
+(`#linux-pair`) opens its tab too. With no hash, `guide.js` picks Linux for
+Linux visitors and macOS for everyone else. Without JavaScript both show.
+
+The macOS tab is illustrated with **drawn mockups** in `img/guide/` — SVGs of the
+menu bar, pairing window and dashboards, made to match the real labels. They
+stand in for screenshots until real ones exist. To swap one, drop the screenshot
+in `img/guide/` under the same name with its own extension (`mac-pairing.png`)
+and change that `<img>`'s `src`, `width` and `height` to match.
 
 ## Deploy
 
