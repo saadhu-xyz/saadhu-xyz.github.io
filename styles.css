@@ -342,17 +342,16 @@ code {
 .footer-col a:hover { color: var(--text); }
 .footer-bottom { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-top: 24px; color: var(--text-mut); font-size: .85rem; }
 
-/* ---------------- INSTALL ---------------- */
-.section-sub a { color: var(--accent-2); text-decoration: underline; text-underline-offset: 3px; }
-/* The install cards hold more than a download card, so they don't stretch the
-   description to push everything else to the bottom. */
-#install .card-desc { flex: 0 0 auto; }
-#install .card .code-block + .code-block { margin-top: 12px; }
-/* Grid items won't shrink below their content by default, so a long "where
-   things live" line widened the card — and the page — past a phone's width.
-   With min-width 0 the card fits and the pre scrolls inside it instead. */
+/* ---------------- SERVER CARDS ---------------- */
+/* Grid items won't shrink below their content by default, so a long code line
+   widened a card — and the page — past a phone's width. With min-width 0 the
+   card fits and the pre scrolls inside it instead. */
 .card { min-width: 0; }
-#install .card:hover { transform: none; }
+/* The server cards hold more than a download card — an install line and a
+   collapsible panel — so the description doesn't stretch to push them down, and
+   the card doesn't lift on hover under someone reading or selecting in it. */
+.server-cards .card-desc { flex: 0 0 auto; }
+.server-cards .card:hover { transform: none; }
 .card-more { margin-top: 16px; border-top: 1px solid var(--line-soft); padding-top: 12px; }
 .card-more summary {
   cursor: pointer; color: var(--accent-2); font-size: .9rem; font-weight: 600;

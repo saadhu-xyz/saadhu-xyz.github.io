@@ -150,11 +150,11 @@
   <section class="section" id="download">
     <div class="wrap">
       <div class="section-head">
-        <span class="kicker">Downloads</span>
+        <span class="kicker">Download &amp; install</span>
         <h2>Get Anton</h2>
         <p class="section-sub">
-          The <b>mobile app</b> is the primary UI for both modes. It connects to a server you run —
-          <a href="#install">install that next</a>.
+          The <b>mobile app</b> is the primary UI for both modes. It connects to the <b>server</b>,
+          which you run on the machine that holds your code.
         </p>
       </div>
 
@@ -186,27 +186,13 @@
         </article>
       </div>
 
-    </div>
-  </section>
-
-  <!-- ============ INSTALL ============ -->
-  <!-- One section for both platforms. It replaced a macOS "quick start" and a
-       Linux "full setup" that repeated the install line three times between
-       them; what comes after installing lives in getting-started.html. The
-       old #quickstart and #manual-install anchors are kept for existing links. -->
-  <section class="section section-alt" id="install">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="kicker">Install the server</span>
-        <h2>One line, on a Mac or Linux</h2>
-        <p class="section-sub">
-          The app connects to a server you run, on the machine that holds your code. No building
-          and no root: the script checks the download against its published <code>SHA256</code>
-          before it installs anything.
-        </p>
-      </div>
-
-      <div class="cards">
+      <!-- SERVER -->
+      <!-- One line per platform. These cards replaced a macOS "quick start" and a
+           Linux "full setup" section that repeated the install line three times
+           between them; what comes after installing is getting-started.html. The
+           old #quickstart and #manual-install anchors are kept for existing links. -->
+      <h3 class="group-title" id="install"><span class="group-tag">Server</span> One line to install</h3>
+      <div class="cards server-cards">
         <article class="card" data-platform="macos" id="quickstart">
           <div class="card-top">
             <div class="card-icon"></div>
@@ -216,8 +202,8 @@
             </div>
           </div>
           <p class="card-desc">
-            Picks the build for your chip, installs <code>Anton.app</code> to
-            <code>/Applications</code> with the Claude Code plugin, and launches it. A
+            Picks the build for your chip, verifies it against the published <code>SHA256</code>,
+            installs <code>Anton.app</code> with the Claude Code plugin, and launches it. A
             <code>● Anton</code> menu bar item then runs all three services, with start/stop,
             pairing and the admin token a click away.
           </p>
@@ -228,13 +214,6 @@
           <p class="card-note">
             It's a plain shell script — <a href="./install-script.html">read it first</a> if you'd rather.
           </p>
-          <div class="code-block">
-            <button class="copy" data-copy>Copy</button>
-            <pre><code><span class="c-dim"># where things live</span>
-~/Library/Application Support/Anton/   <span class="c-dim"># config.json</span>
-~/Library/Logs/Anton/                  <span class="c-dim"># logs</span>
-~/AntonProjects/                       <span class="c-dim"># projects</span></code></pre>
-          </div>
 
           <details class="card-more" id="manual-install">
             <summary>Install from a DMG instead</summary>
@@ -291,7 +270,8 @@ open /Applications/Anton.app</code></pre>
             </div>
           </div>
           <p class="card-desc">
-            Installs the three services and the Claude Code plugin under your home directory, with a
+            Verifies the download against the published <code>SHA256</code>, then installs the three
+            services and the Claude Code plugin under your home directory — no root — with a
             systemd <b>user</b> unit for each. It asks once whether Anton should start at boot, then
             finishes with your dashboard links, admin token and pairing QR.
           </p>
@@ -302,14 +282,6 @@ open /Applications/Anton.app</code></pre>
           <p class="card-note">
             It's a plain shell script — <a href="./install-linux-script.html">read it first</a> if you'd rather.
           </p>
-          <div class="code-block">
-            <button class="copy" data-copy>Copy</button>
-            <pre><code><span class="c-dim"># where things live</span>
-~/.local/share/anton/bin/   <span class="c-dim"># the binaries + plugin</span>
-~/.local/bin/anton          <span class="c-dim"># on your PATH</span>
-~/.anton/                   <span class="c-dim"># config · data · secrets</span>
-~/AntonProjects/            <span class="c-dim"># projects</span></code></pre>
-          </div>
 
           <details class="card-more">
             <summary>Start at boot, upgrades and the tarball</summary>
@@ -348,7 +320,7 @@ journalctl --user -u anton -f</code></pre>
   </section>
 
   <!-- ============ ARCHITECTURE ============ -->
-  <section class="section" id="architecture">
+  <section class="section section-alt" id="architecture">
     <div class="wrap">
       <div class="section-head">
         <span class="kicker">Under the hood</span>
