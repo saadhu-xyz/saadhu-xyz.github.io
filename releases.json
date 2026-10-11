@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "version": "v1.8.1",
-  "published_at": "2026-10-11T17:38:06Z",
+  "published_at": "2026-10-11T17:44:35Z",
   "notes_url": "https://github.com/saadhu-xyz/anton-releases/releases/tag/v1.8.1",
   "min_client_version": "",
   "min_worker_version": "",
@@ -31,11 +31,11 @@
       "size": 23405965
     },
     "ios": {
-      "version": "v1.8.0",
+      "version": "v1.8.1",
       "url": "https://testflight.apple.com/join/9749KKZ8",
-      "sha256": "bee87554ed9fd6c845ad6803de4c83cd6b462f5d513056302ef190372f8da617",
-      "size": 33360123,
-      "build": "202610101706",
+      "sha256": "b250bce4e3ed3b41a149263ab9d78f4c32ab45c87f0645b5e5fa29d1731e654a",
+      "size": 33368553,
+      "build": "202610111739",
       "export_method": "testflight"
     }
   }
